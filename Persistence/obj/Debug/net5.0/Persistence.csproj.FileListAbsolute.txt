@@ -1,0 +1,15 @@
+D:\Desarrollo\Canal6\interface\Persistence\bin\Debug\net5.0\Persistence.deps.json
+D:\Desarrollo\Canal6\interface\Persistence\bin\Debug\net5.0\Persistence.dll
+D:\Desarrollo\Canal6\interface\Persistence\bin\Debug\net5.0\ref\Persistence.dll
+D:\Desarrollo\Canal6\interface\Persistence\bin\Debug\net5.0\Persistence.pdb
+D:\Desarrollo\Canal6\interface\Persistence\bin\Debug\net5.0\Domain.dll
+D:\Desarrollo\Canal6\interface\Persistence\bin\Debug\net5.0\Domain.pdb
+D:\Desarrollo\Canal6\interface\Persistence\obj\Debug\net5.0\Persistence.csproj.AssemblyReference.cache
+D:\Desarrollo\Canal6\interface\Persistence\obj\Debug\net5.0\Persistence.GeneratedMSBuildEditorConfig.editorconfig
+D:\Desarrollo\Canal6\interface\Persistence\obj\Debug\net5.0\Persistence.AssemblyInfoInputs.cache
+D:\Desarrollo\Canal6\interface\Persistence\obj\Debug\net5.0\Persistence.AssemblyInfo.cs
+D:\Desarrollo\Canal6\interface\Persistence\obj\Debug\net5.0\Persistence.csproj.CoreCompileInputs.cache
+D:\Desarrollo\Canal6\interface\Persistence\obj\Debug\net5.0\Persistence.csproj.CopyComplete
+D:\Desarrollo\Canal6\interface\Persistence\obj\Debug\net5.0\Persistence.dll
+D:\Desarrollo\Canal6\interface\Persistence\obj\Debug\net5.0\ref\Persistence.dll
+D:\Desarrollo\Canal6\interface\Persistence\obj\Debug\net5.0\Persistence.pdb
