@@ -1,97 +1,53 @@
 import axios from 'axios'
-import React, { Component } from 'react'
-import { Button, Form, Icon, Input, Menu, Modal } from 'semantic-ui-react'
+import React, { useState, useEffect } from 'react'
+import { Icon, Menu } from 'semantic-ui-react'
+import { ICategoria } from '../../models/categoria'
+import CategoriaForm from './CategoriaForm'
+import CategoriaItem from './CategoriaItem'
+//Interface del componente
 
-//Función que asigna los nombres a las categorías de Canal6
-function nameCategoria(categoria: any): string { 
-  let strCategoria = categoria.id_acervo + "-" +
-  categoria.id_coleccion + "-" +
-  categoria.id_serie + "-" +
-  categoria.id_subserie + "-" +
-  categoria.id_grupo + "-" +
-  categoria.id_subgrupo + "-" +
-  categoria.id_conjunto ;
+interface IState {
+  categorias: ICategoria[],
+  modal: boolean
+}
+
+const Categorias = () => {
+
+  const [categorias, setCategorias] = useState<ICategoria[]>([]);
+  const [selectedModal, setModal] = useState(false);
   
-  return strCategoria
-} ;
+  useEffect(() => {
+axios.get<ICategoria[]>('http://localhost:5000/api/categorias').then( (response) => 
+    {
+      setCategorias(response.data);
+    })
+  },[])
 
-class Categorias extends Component {
 
-  state = {
-      categorias: [], 
-      modal: false
-  }
-
-  openModal = () => this.setState({modal: true})
-  closeModal = () => this.setState({modal: false})
-  
-
-  // Despliega dentro del componente la categoría
-  displayCategorias = (categorias: any[]) => {
+  const closeModal = () => setModal(false)
+  const openModal = () => setModal(true)
+  const displayCategorias = (categorias: ICategoria[]) => {
     return (
       categorias.length > 0 && 
       categorias.map((categoria) => (
-        <Menu.Item
-           key={categoria.id}
-           onClick={() => console.log(categoria)}
-           name={nameCategoria(categoria)}
-           style={{opacity: 0.7}}>
-            # {nameCategoria(categoria)}
-        </Menu.Item>
+        <CategoriaItem key={categoria.id} categoria={categoria} />
       ))
     )
   }
-
-  componentDidMount() {
-    axios.get('http://localhost:5000/api/categorias').then( (response) => 
-    {
-      this.setState({
-        categorias: response.data
-      }) 
-      
-    })
-  }
-
-
-  render() {
-    const { categorias, modal } = this.state
-    console.log(categorias);
-
 
     return (
       <React.Fragment>
       <Menu.Menu style={{ paddingBottom: '2em'}}>
         <Menu.Item>
           <span><Icon name="exchange" /> Categorías </span> {' '}
-          ({categorias.length}) <Icon name="add" onClick={this.openModal}/>
+          ({categorias.length}) <Icon name="add" onClick={openModal}/>
         </Menu.Item>
-      {this.displayCategorias(categorias)}
+      {displayCategorias(categorias)}
       </Menu.Menu>
-        <Modal basic open={modal}>
-          <Modal.Header>Agregar Categoría</Modal.Header>
-          <Modal.Content>
-            <Form>
-              <Form.Field>
-                <Input fluid label="Contexto" name="contexto" ></Input>
-              </Form.Field>
-              <Form.Field>
-                <Input fluid label="SubContexto" name="subcontexto" ></Input>
-              </Form.Field>
-            </Form>
-            </Modal.Content>
-            <Modal.Actions>
-              <Button basic color="green" inverted>
-                <Icon name="checkmark" /> Agregar
-              </Button>
-              <Button basic color="red" inverted onClick={this.closeModal}>
-                <Icon name="remove" /> Cancel
-              </Button>
-            </Modal.Actions>
-          
-        </Modal>
+      <CategoriaForm selectedModal={selectedModal} closeModal={closeModal} />
       </React.Fragment>
     )
-  }
+  
 }
 
 
