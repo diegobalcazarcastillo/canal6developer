@@ -4,6 +4,7 @@ import { Icon, Menu } from 'semantic-ui-react'
 import { ICategoria } from '../../models/categoria'
 import CategoriaForm from './CategoriaForm'
 import CategoriaItem from './CategoriaItem'
+import agent from '../../api/agent'
 //Interface del componente
 
 interface IState {
@@ -17,9 +18,9 @@ const Categorias = () => {
   const [selectedModal, setModal] = useState(false);
   
   useEffect(() => {
-axios.get<ICategoria[]>('http://localhost:5000/api/categorias').then( (response) => 
+    agent.Categorias.List().then( (response) => 
     {
-      setCategorias(response.data);
+      setCategorias(response);
     })
   },[])
 
@@ -35,6 +36,17 @@ axios.get<ICategoria[]>('http://localhost:5000/api/categorias').then( (response)
     )
   }
 
+  const handleCreateChannel = (categoria: ICategoria) => {
+    
+    console.log(categoria);
+    agent.Categorias.create(categoria).then(() => 
+    setCategorias([...categorias, categoria ])
+    ) 
+
+    
+    
+  }
+
     return (
       <React.Fragment>
       <Menu.Menu style={{ paddingBottom: '2em'}}>
@@ -44,7 +56,7 @@ axios.get<ICategoria[]>('http://localhost:5000/api/categorias').then( (response)
         </Menu.Item>
       {displayCategorias(categorias)}
       </Menu.Menu>
-      <CategoriaForm selectedModal={selectedModal} closeModal={closeModal} />
+      <CategoriaForm createCategoria={handleCreateChannel} selectedModal={selectedModal} closeModal={closeModal} />
       </React.Fragment>
     )
   

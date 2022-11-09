@@ -10,7 +10,8 @@ function nameCategoria(categoria: ICategoria): string {
     categoria.id_subserie + "-" +
     categoria.id_grupo + "-" +
     categoria.id_subgrupo + "-" +
-    categoria.id_conjunto ;
+    categoria.id_conjunto + "-" +
+    categoria.id_subconjunto;
     
     return strCategoria
   } ;

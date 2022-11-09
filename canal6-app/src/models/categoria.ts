@@ -4,8 +4,8 @@ export interface ICategoria {
     id_coleccion: number,
     id_serie: number,
     id_subserie: number,
-    id_grupo: 3,
-    id_subgrupo: 5,
+    id_grupo: number,
+    id_subgrupo: number,
     id_conjunto: number,
     id_subconjunto: number
 }
