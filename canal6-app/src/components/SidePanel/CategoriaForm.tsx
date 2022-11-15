@@ -1,17 +1,14 @@
-import React , {useState, useEffect, SyntheticEvent }from 'react'
-import axios from 'axios'
-import { Button, DropdownProps, Form, Icon, Input, Modal, Select } from 'semantic-ui-react'
+import React , {useState, useEffect, SyntheticEvent, useContext }from 'react'
+import { Button, Form, Icon, Modal, Select } from 'semantic-ui-react'
 import { IAcervo, IColeccion, IConjunto, IGrupo, ISerie, ISubconjunto, ISubGrupo, ISubSerie } from '../../models/InfoCategorias'
 import agent from '../../api/agent'
 import { ICategoria } from '../../models/categoria'
+import CategoriaStore from '../../stores/CategoriaStore'
+import {observer} from 'mobx-react-lite'
 
-interface IProps{
-    selectedModal: boolean,
-    closeModal: () => void,
-    createCategoria: (categoria: ICategoria) => void
-}
 
-const CategoriaForm: React.FC<IProps> = ({ selectedModal, closeModal, createCategoria }) => {
+
+const CategoriaForm: React.FC = () => {
 
   const initialCategoria = {
     id: '',
@@ -26,6 +23,8 @@ const CategoriaForm: React.FC<IProps> = ({ selectedModal, closeModal, createCate
   }
   
 
+
+  const {isModalVisible, ShowModal, createCategoria} = useContext(CategoriaStore);
   const [categoria, setCategoria] = useState<ICategoria>(initialCategoria)
   const [acervos, setAcervos] = useState<IAcervo[]>([]);
   const [colecciones, setColecciones] = useState<IColeccion[]>([]);
@@ -72,13 +71,13 @@ const CategoriaForm: React.FC<IProps> = ({ selectedModal, closeModal, createCate
 
    createCategoria(NewCategoria);
    setCategoria(initialCategoria); //Reinicia cuando se vuelva a entrar
-   closeModal();
+   ShowModal(false);
   }
 
 
   return (
     
-    <Modal basic open={selectedModal}>
+    <Modal basic open={isModalVisible}>
           <Modal.Header>Agregar Categoría</Modal.Header>
           <Modal.Content>
             <Form>
@@ -120,7 +119,7 @@ const CategoriaForm: React.FC<IProps> = ({ selectedModal, closeModal, createCate
               <Button basic color="green" onClick={handleSubmit} inverted>
                 <Icon name="checkmark" /> Agregar
               </Button>
-              <Button basic color="red" inverted onClick={closeModal}>
+              <Button basic color="red" inverted onClick={() => ShowModal(false)}>
                 <Icon name="remove" /> Cancel
               </Button>
             </Modal.Actions>
@@ -129,4 +128,4 @@ const CategoriaForm: React.FC<IProps> = ({ selectedModal, closeModal, createCate
   )
 }
 
-export default CategoriaForm
+export default observer(CategoriaForm)

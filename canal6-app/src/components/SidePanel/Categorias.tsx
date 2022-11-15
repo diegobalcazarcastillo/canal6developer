@@ -1,10 +1,10 @@
-import axios from 'axios'
-import React, { useState, useEffect } from 'react'
+import React, {  useEffect, useContext } from 'react'
 import { Icon, Menu } from 'semantic-ui-react'
 import { ICategoria } from '../../models/categoria'
 import CategoriaForm from './CategoriaForm'
 import CategoriaItem from './CategoriaItem'
-import agent from '../../api/agent'
+import CategoriaStore from '../../stores/CategoriaStore'
+import {observer} from 'mobx-react-lite'
 //Interface del componente
 
 interface IState {
@@ -14,19 +14,18 @@ interface IState {
 
 const Categorias = () => {
 
-  const [categorias, setCategorias] = useState<ICategoria[]>([]);
-  const [selectedModal, setModal] = useState(false);
+  const categoriaStore = useContext(CategoriaStore);
+  const {categorias} = categoriaStore
+
+
   
   useEffect(() => {
-    agent.Categorias.List().then( (response) => 
-    {
-      setCategorias(response);
-    })
-  },[])
+
+    categoriaStore.loadCategoria()
+    
+  },[categoriaStore])
 
 
-  const closeModal = () => setModal(false)
-  const openModal = () => setModal(true)
   const displayCategorias = (categorias: ICategoria[]) => {
     return (
       categorias.length > 0 && 
@@ -36,31 +35,22 @@ const Categorias = () => {
     )
   }
 
-  const handleCreateChannel = (categoria: ICategoria) => {
-    
-    console.log(categoria);
-    agent.Categorias.create(categoria).then(() => 
-    setCategorias([...categorias, categoria ])
-    ) 
-
-    
-    
-  }
+  
 
     return (
       <React.Fragment>
       <Menu.Menu style={{ paddingBottom: '2em'}}>
         <Menu.Item>
           <span><Icon name="exchange" /> Categorías </span> {' '}
-          ({categorias.length}) <Icon name="add" onClick={openModal}/>
+          ({categorias.length}) <Icon name="add" onClick={()=> categoriaStore.ShowModal(true)  }/>
         </Menu.Item>
       {displayCategorias(categorias)}
       </Menu.Menu>
-      <CategoriaForm createCategoria={handleCreateChannel} selectedModal={selectedModal} closeModal={closeModal} />
+      <CategoriaForm   />
       </React.Fragment>
     )
   
 }
 
 
-export default Categorias
+export default observer(Categorias)

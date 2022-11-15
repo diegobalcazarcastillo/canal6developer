@@ -1,7 +1,8 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import { Menu } from 'semantic-ui-react'
 import { ICategoria } from '../../models/categoria'
-
+import {observer} from 'mobx-react-lite'
+import CategoriaStore from '../../stores/CategoriaStore'
 
 function nameCategoria(categoria: ICategoria): string { 
     let strCategoria = categoria.id_acervo + "-" +
@@ -19,15 +20,17 @@ function nameCategoria(categoria: ICategoria): string {
 interface IProps
 {
     categoria: ICategoria
-
 }
 
 
 const CategoriaItem: React.FC<IProps> = ({categoria}) => {
+
+const {categoriaElecta, setCategoria} = useContext(CategoriaStore);
+
   return (
    <Menu.Item
            key={categoria.id}
-           onClick={() => console.log(categoria)}
+           onClick={() => setCategoria(categoria) }
            name={nameCategoria(categoria)}
            style={{opacity: 0.7}}>
             # {nameCategoria(categoria)}
@@ -35,4 +38,4 @@ const CategoriaItem: React.FC<IProps> = ({categoria}) => {
   )
 }
 
-export default CategoriaItem
+export default observer(CategoriaItem)

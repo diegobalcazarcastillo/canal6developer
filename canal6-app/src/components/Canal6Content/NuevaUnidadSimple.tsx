@@ -9,7 +9,7 @@ const NuevaUnidadSimple = () => {
         <NuevaUnidadSimpleHeader></NuevaUnidadSimpleHeader>
         <Segment>
             {/*Cosas a agregar aquí*/}
-            <Comment.Group></Comment.Group>
+            
         </Segment>
         <NuevaUnidadSimpleForm></NuevaUnidadSimpleForm>
     </React.Fragment>
