@@ -1,6 +1,6 @@
 import React, {useContext} from 'react'
 import { Segment, Input, Button, Label, Grid } from 'semantic-ui-react'
-import CategoriaStore from '../../stores/CategoriaStore'
+import CategoriaStore from '../../../stores/CategoriaStore'
 import {observer} from 'mobx-react-lite'
 
 const NuevaUnidadSimpleAreaDDefinicion = () => {

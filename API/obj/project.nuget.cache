@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "hark3BsvwbxHGMWzaQIQOAZ1hSh1fOizbjc8hfMPDKXD4PHr3HsiX3db1EN/CENfX2IfS8B+Vm/qqwihZLbABQ==",
+  "dgSpecHash": "uzZKuSaZgQH2F9tlzVu8Op71aBtSFdm7ewRazpZVPzaRoxamFw8ZaTBsNtAW/xB/NE4aeVK/AR3vRrvCVWXSFw==",
   "success": true,
-  "projectFilePath": "D:\\Desarrollo\\Canal6\\interface\\API\\API.csproj",
+  "projectFilePath": "D:\\Desarrollo\\Canal6\\interface\\api\\API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\zero1\\.nuget\\packages\\mediatr\\8.1.0\\mediatr.8.1.0.nupkg.sha512",
     "C:\\Users\\zero1\\.nuget\\packages\\mediatr.extensions.microsoft.dependencyinjection\\8.1.0\\mediatr.extensions.microsoft.dependencyinjection.8.1.0.nupkg.sha512",

@@ -1,7 +1,8 @@
 import React, {useContext} from 'react'
-import { Menu } from 'semantic-ui-react'
+import { Button, Icon, Menu } from 'semantic-ui-react'
 import { ICategoria } from '../../models/categoria'
 import {observer} from 'mobx-react-lite'
+import { useNavigate } from 'react-router-dom'
 import CategoriaStore from '../../stores/CategoriaStore'
 
 function nameCategoria(categoria: ICategoria): string { 
@@ -26,14 +27,17 @@ interface IProps
 const CategoriaItem: React.FC<IProps> = ({categoria}) => {
 
 const {categoriaElecta, setCategoria} = useContext(CategoriaStore);
-
+const navigate = useNavigate();
   return (
    <Menu.Item
            key={categoria.id}
-           onClick={() => setCategoria(categoria) }
            name={nameCategoria(categoria)}
            style={{opacity: 0.7}}>
             # {nameCategoria(categoria)}
+            <Icon name="add circle" onClick={() => {
+            setCategoria(categoria);
+            navigate("Nueva");
+            } }/>
         </Menu.Item>
   )
 }

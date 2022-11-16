@@ -4,6 +4,7 @@ import NuevaUnidadSimpleAreaDDefinicion from './NuevaUnidadSimpleAreaDDefinicion
 const NuevaUnidadSimpleForm = () => {
   return (
     <NuevaUnidadSimpleAreaDDefinicion></NuevaUnidadSimpleAreaDDefinicion>
+    
   )
 }
 
