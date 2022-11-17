@@ -20,5 +20,6 @@ namespace Persistence
         public DbSet<SUBGRUPO> subgrupo {get;set;}
         public DbSet<SUBSERIE> subserie  {get;set;}
         public DbSet<CATEGORIA> categoria  {get;set;}
+        public DbSet<UNIDADSIMPLE> unidadsimple {get;set;}
     }
 }

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Desarrollo\\Canal6\\interface\\Domain\\Domain.csproj": {}
+    "D:\\Desarrollo\\Canal6\\Interface\\Domain\\Domain.csproj": {}
   },
   "projects": {
-    "D:\\Desarrollo\\Canal6\\interface\\Domain\\Domain.csproj": {
+    "D:\\Desarrollo\\Canal6\\Interface\\Domain\\Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Desarrollo\\Canal6\\interface\\Domain\\Domain.csproj",
+        "projectUniqueName": "D:\\Desarrollo\\Canal6\\Interface\\Domain\\Domain.csproj",
         "projectName": "Domain",
-        "projectPath": "D:\\Desarrollo\\Canal6\\interface\\Domain\\Domain.csproj",
+        "projectPath": "D:\\Desarrollo\\Canal6\\Interface\\Domain\\Domain.csproj",
         "packagesPath": "C:\\Users\\zero1\\.nuget\\packages\\",
-        "outputPath": "D:\\Desarrollo\\Canal6\\interface\\Domain\\obj\\",
+        "outputPath": "D:\\Desarrollo\\Canal6\\Interface\\Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
