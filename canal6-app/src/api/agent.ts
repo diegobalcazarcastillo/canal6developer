@@ -1,6 +1,7 @@
 import axios, { AxiosResponse } from 'axios'
 import { Agent } from 'http';
 import { ICategoria } from '../models/categoria';
+import { IUnidadSimple} from '../models/unidadsimple'
 import { IAcervo, IColeccion, IConjunto, IGrupo, ISerie, ISubconjunto, ISubGrupo, ISubSerie } from '../models/InfoCategorias';
 
 axios.defaults.baseURL = 'http://localhost:5000/api';
@@ -54,6 +55,12 @@ const SubConjunto = {
     create: (categoria: ISubconjunto) => request.post('/subconjuntos', categoria)
 }
 
+const UnidadSimple = {
+    List: ()  : Promise<IUnidadSimple[]> => request.get('/unidadsimple'),
+    create: (categoria: IUnidadSimple) => request.post('/unidadsimple', categoria),
+    ultimo: (id_categoria: string) : Promise<IUnidadSimple> => request.get('/unidadsimple/ultimo/' + id_categoria)
+}
+
 export default
 {
     Acervo,
@@ -64,5 +71,6 @@ export default
     Grupo, 
     SubGrupo,
     Conjunto,
-    SubConjunto
+    SubConjunto,
+    UnidadSimple
 }

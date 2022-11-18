@@ -1,9 +1,10 @@
-import React, {useContext, useState} from 'react'
+import React, {useContext, useState, useEffect} from 'react'
 import { Segment, Input, Button, Label, Grid } from 'semantic-ui-react'
 import CategoriaStore from '../../../stores/CategoriaStore'
+import UnidadSimpleStore from '../../../stores/UnidadSimpleStore'
 import {observer} from 'mobx-react-lite'
 import { IUnidadSimple } from '../../../models/unidadsimple'
-
+import agent from '../../../api/agent'
 const NuevaUnidadSimpleAreaDDefinicion = () => {
 
     const initialUnidadSimple = {
@@ -16,23 +17,32 @@ const NuevaUnidadSimpleAreaDDefinicion = () => {
     }
 
     const [unidadsimple, setUnidadSimple] = useState<IUnidadSimple>(initialUnidadSimple)
-    const {categoriaElecta} = useContext(CategoriaStore)
+    const {categoriaElecta, ultimaUnidadSimple} = useContext(CategoriaStore)
+    const {createUnidadSimple} = useContext(UnidadSimpleStore)
+
 
 
     const handleTextChange = event => {
 
-        setUnidadSimple({...unidadsimple, [event.target.name]: event.target.value, id_categoria: categoriaElecta.id});
+        setUnidadSimple({...unidadsimple, 
+                        [event.target.name]: event.target.value, 
+                        id_categoria: categoriaElecta.id});
+        
         
     }
 
     const handleSubmit = () => {
+
+        createUnidadSimple(unidadsimple)
+
+
         console.log(unidadsimple);
     }
 
     return (
         <Segment >
             <Label style={{ marginBottom: '0.7em' }}  as='a' color='teal' ribbon>1.1 Código de referencia</Label>
-            <Input fluid style={{ marginBottom: '0.7em' }} placeholder={categoriaElecta.id} labelPosition="left" name="id_categoria"  onChange={handleTextChange}></Input>
+            <Input fluid style={{ marginBottom: '0.7em' }} placeholder={ categoriaElecta.id + '-' + (ultimaUnidadSimple.id + 1)   } labelPosition="left" name="id_categoria"  onChange={handleTextChange}></Input>
 
             <Label style={{ marginBottom: '0.7em' }}  as='a' color='teal' ribbon> 1.2 Número topográfico</Label>
             <Input fluid style={{ marginBottom: '0.7em' }} labelPosition="left" placeholder="XXX-XXX-XXX" name="numero_topografico" onChange={handleTextChange}></Input>

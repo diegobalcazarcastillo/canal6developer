@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "kemI3soZ3cAO/QlbQvbyF41eEc05kITs5Dds9tbME8u4vgYzn0MljRhhRLpI2ImYabviBDc/6znBwy5wonE55Q==",
+  "dgSpecHash": "DqsDPUASRiFzF2I+i3P9Z2D42aGJpbvCiGFtHzA43BdsTk+ru6WD97a/6tMoE5SDn7jbHp8m9ehMpiSrVfDYEQ==",
   "success": true,
-  "projectFilePath": "D:\\Desarrollo\\Canal6\\Interface\\Domain\\Domain.csproj",
+  "projectFilePath": "D:\\Desarrollo\\Canal6\\interface\\Domain\\Domain.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

@@ -31,12 +31,15 @@ namespace API.Controllers
             return await _mediator.Send(new Application.UnidadSimple.Details.Query{id = id} );
         }
 
-        [HttpGet()]
-        [Route("ultimo")]
-        public async Task<UNIDADSIMPLE> Ultimo()
+
+        /*[Route("ultimo")]*/
+        [HttpGet("ultimo/{id_categoria}")]
+        
+        public async Task<UNIDADSIMPLE> Ultimo(string id_categoria)
         {
+            // 
             var lista = await _mediator.Send(new Application.UnidadSimple.List.Query() );
-            return lista.OrderByDescending(x => x.id).FirstOrDefault();
+            return lista.Where(x => x.id_categoria == id_categoria).OrderByDescending(x => x.id).FirstOrDefault();
         }
 
     

@@ -5025,11 +5025,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Desarrollo\\Canal6\\Interface\\Application\\Application.csproj",
+      "projectUniqueName": "D:\\Desarrollo\\Canal6\\interface\\Application\\Application.csproj",
       "projectName": "Application",
-      "projectPath": "D:\\Desarrollo\\Canal6\\Interface\\Application\\Application.csproj",
+      "projectPath": "D:\\Desarrollo\\Canal6\\interface\\Application\\Application.csproj",
       "packagesPath": "C:\\Users\\zero1\\.nuget\\packages\\",
-      "outputPath": "D:\\Desarrollo\\Canal6\\Interface\\Application\\obj\\",
+      "outputPath": "D:\\Desarrollo\\Canal6\\interface\\Application\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -5050,11 +5050,11 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "D:\\Desarrollo\\Canal6\\Interface\\Domain\\Domain.csproj": {
-              "projectPath": "D:\\Desarrollo\\Canal6\\Interface\\Domain\\Domain.csproj"
+            "D:\\Desarrollo\\Canal6\\interface\\Domain\\Domain.csproj": {
+              "projectPath": "D:\\Desarrollo\\Canal6\\interface\\Domain\\Domain.csproj"
             },
-            "D:\\Desarrollo\\Canal6\\Interface\\Persistence\\Persistence.csproj": {
-              "projectPath": "D:\\Desarrollo\\Canal6\\Interface\\Persistence\\Persistence.csproj"
+            "D:\\Desarrollo\\Canal6\\interface\\Persistence\\Persistence.csproj": {
+              "projectPath": "D:\\Desarrollo\\Canal6\\interface\\Persistence\\Persistence.csproj"
             }
           }
         }
