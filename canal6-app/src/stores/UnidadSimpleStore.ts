@@ -16,9 +16,8 @@ class UnidadSimpleStore
         NT_numerocinta: -1,
         duracion: ''
     }
-    
-    
-    
+
+    @observable UnidadesSimplesElectas: IUnidadSimple[] = [];
 
     @action createUnidadSimple = async (unidadSimple: IUnidadSimple) => {
         try {
@@ -26,18 +25,19 @@ class UnidadSimpleStore
         console.log('CREADO');
         } catch(err) {console.log(err);}
     }
+    @action listUnidadSimple = async () => 
+    {
+        try {
+            var unidadSimpleElecta = await agent.UnidadSimple.List();
+            this.UnidadesSimplesElectas = unidadSimpleElecta 
+            console.log(this.UnidadesSimplesElectas[0].numero_topografico);
+            } catch(err) {console.log(err);}
+    }
+
 
     
 
-   /* @action setUltimaUnidadSimple = async () =>
-    {
-        try
-        {
-            var response = await agent.UnidadSimple.ultimo(this.categoriaElecta.id);
-            this.ultimaUnidadSimple = response;
-        }
-        catch(err) {console.log(err)} 
-    }*/
+   
 }
 
 export default createContext(new UnidadSimpleStore)

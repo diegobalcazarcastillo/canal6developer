@@ -4,9 +4,7 @@ import './App.css'
 import { Grid } from 'semantic-ui-react';
 import SidePanel from './components/SidePanel/SidePanel'
 import ColorPanel from './components/ColorPanel/ColorPanel'
-import InformationPanel from './components/Canal6Content/InformationPanel';
 import { Outlet } from 'react-router-dom';
-import NuevaUnidadSimple from './components/Canal6Content/NuevaUnidadSimple/NuevaUnidadSimple';
 
 const MainCanal6 = () => {
   

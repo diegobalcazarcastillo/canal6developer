@@ -4,6 +4,7 @@ import { ICategoria } from '../../models/categoria'
 import {observer} from 'mobx-react-lite'
 import { useNavigate } from 'react-router-dom'
 import CategoriaStore from '../../stores/CategoriaStore'
+import UnidadSimpleStore from '../../stores/UnidadSimpleStore'
 
 function nameCategoria(categoria: ICategoria): string { 
     let strCategoria = categoria.id_acervo + "-" +
@@ -26,13 +27,16 @@ interface IProps
 
 const CategoriaItem: React.FC<IProps> = ({categoria}) => {
 
-const {categoriaElecta, setCategoria} = useContext(CategoriaStore);
+const {setCategoria} = useContext(CategoriaStore);
+const {listUnidadSimple}  = useContext(UnidadSimpleStore)
 const navigate = useNavigate();
   return (
    <Menu.Item
            key={categoria.id}
            name={nameCategoria(categoria)}
-           style={{opacity: 0.7}}>
+           style={{opacity: 0.7}}
+           onClick={listUnidadSimple}
+           >
             # {nameCategoria(categoria)}
             <Icon name="add circle" onClick={() => {
             setCategoria(categoria);
