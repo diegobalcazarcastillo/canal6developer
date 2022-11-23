@@ -26,21 +26,27 @@ interface IProps
 
 
 const CategoriaItem: React.FC<IProps> = ({categoria}) => {
-
+  
 const {setCategoria} = useContext(CategoriaStore);
-const {listUnidadSimple}  = useContext(UnidadSimpleStore)
+const {listUnidadSimple, showEdit}  = useContext(UnidadSimpleStore)
 const navigate = useNavigate();
+
   return (
    <Menu.Item
            key={categoria.id}
            name={nameCategoria(categoria)}
            style={{opacity: 0.7}}
-           onClick={listUnidadSimple}
+           
            >
             # {nameCategoria(categoria)}
             <Icon name="add circle" onClick={() => {
             setCategoria(categoria);
+            showEdit(false);
             navigate("Nueva");
+            } }/>
+            <Icon name="list ul" onClick={() => {
+            listUnidadSimple(categoria.id);
+            navigate("Consulta");
             } }/>
         </Menu.Item>
   )

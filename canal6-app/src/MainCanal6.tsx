@@ -13,7 +13,7 @@ const MainCanal6 = () => {
       <ColorPanel/>
       <SidePanel />
      
-      <Grid.Column width={12} style={{ marginLeft: 320}}>
+      <Grid.Column width={12} style={{ marginLeft: 400}}>
         
             <Outlet/>
         

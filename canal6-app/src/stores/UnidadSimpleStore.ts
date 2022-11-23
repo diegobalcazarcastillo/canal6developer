@@ -1,6 +1,5 @@
 import { observable, action, makeObservable} from "mobx";
 import { createContext } from "react";
-import { ICategoria } from "../models/categoria";
 import agent from '../api/agent'
 import { IUnidadSimple } from "../models/unidadsimple";
 class UnidadSimpleStore
@@ -8,16 +7,21 @@ class UnidadSimpleStore
     constructor()  {
         makeObservable(this);
     }
+    @observable isEdit: boolean = false;
+    @observable UnidadesSimplesElectas: IUnidadSimple[] = [];
     @observable ultimaUnidadSimple: IUnidadSimple = {
         id: -1,
         numero_topografico: '',
         id_categoria: '',
-        NT_numerocasetes: -1,
-        NT_numerocinta: -1,
+        nT_numerocasetes: -1,
+        nT_numerocinta: -1,
         duracion: ''
     }
 
-    @observable UnidadesSimplesElectas: IUnidadSimple[] = [];
+
+
+    @action showEdit = (edit: boolean) => { 
+        this.isEdit = edit } // Esta variable lo voy a usar la parte de NuevaUnidadSimple
 
     @action createUnidadSimple = async (unidadSimple: IUnidadSimple) => {
         try {
@@ -25,19 +29,13 @@ class UnidadSimpleStore
         console.log('CREADO');
         } catch(err) {console.log(err);}
     }
-    @action listUnidadSimple = async () => 
+    @action listUnidadSimple = async (id_categoria: string) => 
     {
         try {
-            var unidadSimpleElecta = await agent.UnidadSimple.List();
+            var unidadSimpleElecta = await agent.UnidadSimple.List(id_categoria);
             this.UnidadesSimplesElectas = unidadSimpleElecta 
-            console.log(this.UnidadesSimplesElectas[0].numero_topografico);
             } catch(err) {console.log(err);}
     }
-
-
-    
-
-   
 }
 
 export default createContext(new UnidadSimpleStore)

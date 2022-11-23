@@ -6,7 +6,7 @@ namespace Domain
 {
     public class UNIDADSIMPLE
     {
-        [Key]
+        
         public int id { get; set; }
         public string id_categoria { get; set; }
         public string numero_topografico { get; set; }

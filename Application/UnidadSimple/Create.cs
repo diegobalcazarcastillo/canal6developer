@@ -10,6 +10,7 @@ namespace Application.UnidadSimple
     {
         public class Command : IRequest
         {
+            public int id {get;set;}
             public string id_categoria { get; set; }
             public string numero_topografico { get; set; }
             public int NT_numerocasetes { get; set; }
@@ -27,6 +28,7 @@ namespace Application.UnidadSimple
             {
                 var newobj = new UNIDADSIMPLE
                 {
+                    id = request.id,
                     id_categoria = request.id_categoria,
                     numero_topografico = request.numero_topografico,
                     NT_numerocasetes = request.NT_numerocasetes,

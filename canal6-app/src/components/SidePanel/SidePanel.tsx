@@ -5,7 +5,7 @@ import UserPanel from './UserPanel'
 const SidePanel = () => {
     return (
         <Menu
-            size="large"
+            size="huge"
             inverted
             fixed="left"
             vertical

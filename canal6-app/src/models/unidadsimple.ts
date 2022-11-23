@@ -2,7 +2,7 @@ export interface IUnidadSimple {
     id: number,
     id_categoria: string,
     numero_topografico: string,
-    NT_numerocasetes: number,
-    NT_numerocinta: number,
+    nT_numerocasetes: number,
+    nT_numerocinta: number,
     duracion: string
 }

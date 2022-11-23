@@ -8,26 +8,27 @@ class CategoriaStore
     constructor()  {
         makeObservable(this);
     }
+
     @observable ultimaUnidadSimple: IUnidadSimple = {
         id: -1,
         numero_topografico: '',
         id_categoria: '',
-        NT_numerocasetes: -1,
-        NT_numerocinta: -1,
+        nT_numerocasetes: -1,
+        nT_numerocinta: -1,
         duracion: ''
     }
     @observable categorias: ICategoria[] = []
     @observable isModalVisible: boolean = false
     @observable categoriaElecta: ICategoria = {
         id: '',
-    id_acervo: '',
-    id_coleccion: 0,
-    id_serie: 0,
-    id_subserie: 0,
-    id_grupo: 0,
-    id_subgrupo: 0,
-    id_conjunto: 0,
-    id_subconjunto: 0
+        id_acervo: '',
+        id_coleccion: 0,
+        id_serie: 0,
+        id_subserie: 0,
+        id_grupo: 0,
+        id_subgrupo: 0,
+        id_conjunto: 0,
+        id_subconjunto: 0
     }
     @action loadCategoria = async ()  => {
         /**/
@@ -47,9 +48,13 @@ class CategoriaStore
         } catch(err) {console.log(err);}
     }
 
-    @action setCategoria = async (categoria: ICategoria) => {
-        
+    @action setUltimaUnidadSimple = (unidadSimple: IUnidadSimple) => {
+        this.ultimaUnidadSimple = unidadSimple
+        console.log(this.ultimaUnidadSimple.id)
+        console.log(this.ultimaUnidadSimple.id_categoria)
+    }
 
+    @action setCategoria = async (categoria: ICategoria) => {
         this.categoriaElecta = categoria;
         var response: IUnidadSimple = await agent.UnidadSimple.ultimo(this.categoriaElecta.id);
         this.ultimaUnidadSimple = response;
@@ -57,15 +62,6 @@ class CategoriaStore
         console.log('UltimoId : ' + this.ultimaUnidadSimple.id);
     }
 
-   /* @action setUltimaUnidadSimple = async () =>
-    {
-        try
-        {
-            var response = await agent.UnidadSimple.ultimo(this.categoriaElecta.id);
-            this.ultimaUnidadSimple = response;
-        }
-        catch(err) {console.log(err)} 
-    }*/
 }
 
 export default createContext(new CategoriaStore)

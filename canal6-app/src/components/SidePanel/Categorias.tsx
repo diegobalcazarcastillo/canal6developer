@@ -5,6 +5,7 @@ import CategoriaForm from './CategoriaForm'
 import CategoriaItem from './CategoriaItem'
 import CategoriaStore from '../../stores/CategoriaStore'
 import {observer} from 'mobx-react-lite'
+
 //Interface del componente
 
 interface IState {
@@ -15,6 +16,7 @@ interface IState {
 const Categorias = () => {
 
   const categoriaStore = useContext(CategoriaStore);
+
   const {categorias} = categoriaStore
 
 
@@ -35,14 +37,13 @@ const Categorias = () => {
     )
   }
 
-  
-
+ 
     return (
       <React.Fragment>
       <Menu.Menu style={{ paddingBottom: '2em'}}>
         <Menu.Item>
           <span><Icon name="exchange" /> Categorías </span> {' '}
-          ({categorias.length}) <Icon name="add" onClick={()=> categoriaStore.ShowModal(true)  }/>
+          ({categorias.length}) <Icon name="add" onClick={()=> categoriaStore.ShowModal(true) }/>
         </Menu.Item>
       {displayCategorias(categorias)}
       </Menu.Menu>

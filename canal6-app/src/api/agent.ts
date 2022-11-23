@@ -1,5 +1,4 @@
 import axios, { AxiosResponse } from 'axios'
-import { Agent } from 'http';
 import { ICategoria } from '../models/categoria';
 import { IUnidadSimple} from '../models/unidadsimple'
 import { IAcervo, IColeccion, IConjunto, IGrupo, ISerie, ISubconjunto, ISubGrupo, ISubSerie } from '../models/InfoCategorias';
@@ -56,9 +55,9 @@ const SubConjunto = {
 }
 
 const UnidadSimple = {
-    List: ()  : Promise<IUnidadSimple[]> => request.get('/unidadsimple'),
+    List: (id_categoria: string)  : Promise<IUnidadSimple[]> => request.get('/unidadsimple/list/' + id_categoria), // Da la lista de Unidades simples de una categoría
     create: (categoria: IUnidadSimple) => request.post('/unidadsimple', categoria),
-    ultimo: (id_categoria: string) : Promise<IUnidadSimple> => request.get('/unidadsimple/ultimo/' + id_categoria)
+    ultimo: (id_categoria: string) : Promise<IUnidadSimple> => request.get('/unidadsimple/ultimo/' + id_categoria) // Da la última Unidad simple registrada
 }
 
 export default

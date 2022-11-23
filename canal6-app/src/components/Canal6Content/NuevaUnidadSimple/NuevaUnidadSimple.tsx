@@ -7,10 +7,6 @@ const NuevaUnidadSimple = () => {
   return (
     <React.Fragment>
         <NuevaUnidadSimpleHeader></NuevaUnidadSimpleHeader>
-        <Segment>
-            {/*Cosas a agregar aquí*/}
-            
-        </Segment>
         <NuevaUnidadSimpleForm></NuevaUnidadSimpleForm>
     </React.Fragment>
   )
