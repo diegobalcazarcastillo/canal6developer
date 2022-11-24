@@ -1,10 +1,11 @@
 import React , {useState, useEffect, SyntheticEvent, useContext }from 'react'
-import { Button, Form, Icon, Modal, Select } from 'semantic-ui-react'
+import { Button, Form, Icon, Modal, Placeholder, Select } from 'semantic-ui-react'
 import { IAcervo, IColeccion, IConjunto, IGrupo, ISerie, ISubconjunto, ISubGrupo, ISubSerie } from '../../models/InfoCategorias'
 import agent from '../../api/agent'
 import { ICategoria } from '../../models/categoria'
 import CategoriaStore from '../../stores/CategoriaStore'
 import {observer} from 'mobx-react-lite'
+import CategoriaFormItem from './CategoriaFormItem'
 
 
 
@@ -81,9 +82,9 @@ const CategoriaForm: React.FC = () => {
           <Modal.Header>Agregar Categoría</Modal.Header>
           <Modal.Content>
             <Form>
-              <Form.Field>
-                <Select placeholder='Acervo' name="id_acervo" onChange={handleSelectChange} options={acervos.map(ds => {return {key: ds.id,text: ds.nombre,value: ds.id}})}></Select>
-              </Form.Field>
+              
+                <CategoriaFormItem handleSelectChange={handleSelectChange} colecciones={colecciones} placeholder='Acervo' name='id_acervo' />
+              
               
               <Form.Field>
                 <Select placeholder='Colección' name="id_coleccion" onChange={handleSelectChange} options={colecciones.map(ds => {return {key: ds.id,text: ds.nombre,value: ds.id}})}></Select>  
@@ -129,3 +130,7 @@ const CategoriaForm: React.FC = () => {
 }
 
 export default observer(CategoriaForm)
+
+
+
+/* <Select placeholder='Acervo' name="id_acervo" onChange={handleSelectChange} options={acervos.map(ds => {return {key: ds.id,text: ds.nombre,value: ds.id}})}></Select>*/ 

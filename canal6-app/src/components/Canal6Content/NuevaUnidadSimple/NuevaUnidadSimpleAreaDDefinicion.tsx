@@ -59,7 +59,7 @@ const NuevaUnidadSimpleAreaDDefinicion = () => {
 
         setUnidadSimple({...unidadsimple, 
                         [event.target.name]: event.target.value, 
-                        id: ultimaUnidadSimple.id + 1,
+                        id: isNaN(ultimaUnidadSimple.id) ? 1 : (ultimaUnidadSimple.id + 1),
                         id_categoria: categoriaElecta.id});
         
         
@@ -76,7 +76,8 @@ const NuevaUnidadSimpleAreaDDefinicion = () => {
         <Segment >
             <Label style={{ marginBottom: '0.7em' }}  as='a' color='teal' ribbon>1.1 Código de referencia</Label>
             <Input fluid style={{ marginBottom: '0.7em' }} value={ (isEdit == false ? categoriaElecta.id :  ultimaUnidadSimple.id_categoria ) + '-' + 
-                                                                         (isEdit == false ? ultimaUnidadSimple.id + 1 : ultimaUnidadSimple.id)   } labelPosition="left" name="id_categoria"  onChange={handleTextChange}></Input>
+                                                                   (isEdit == false ? isNaN(ultimaUnidadSimple.id) ? 1 : (ultimaUnidadSimple.id + 1) : ultimaUnidadSimple.id)} 
+                                                                   labelPosition="left" name="id_categoria"  onChange={handleTextChange}></Input>
 
             <Label style={{ marginBottom: '0.7em' }}  as='a' color='teal' ribbon> 1.2 Número topográfico</Label>
             <Input fluid style={{ marginBottom: '0.7em' }} labelPosition="left" 
@@ -90,7 +91,7 @@ const NuevaUnidadSimpleAreaDDefinicion = () => {
                 <Grid.Row columns={2}>
                     <Grid.Column>
                      <Input fluid style={{ marginBottom: '0.7em' }} label={<Label> # de casetes</Label>} labelPosition="left" 
-                     placeholder={ (isEdit == false ? "1" : "" )} 
+                     placeholder={(isEdit == false ? "1" : "" )} 
                      defaultValue={( isEdit == false ? "" : ultimaUnidadSimple.nT_numerocasetes )}
                      name="nT_numerocasetes" onChange={handleTextChange}/>
                     </Grid.Column>
@@ -105,9 +106,9 @@ const NuevaUnidadSimpleAreaDDefinicion = () => {
 
             <Label style={{ marginBottom: '0.7em' }} as='a' color='teal' ribbon>1.4 Duración</Label>
             <Input fluid style={{ marginBottom: '0.7em' }} labelPosition="left" 
-            placeholder={ (isEdit == false ? "00:00:00" : "" )} 
-            defaultValue={( isEdit == false ? "" : ultimaUnidadSimple.duracion )}
-            name="duracion" onChange={handleTextChange} />
+                placeholder={ (isEdit == false ? "00:00:00" : "" )} 
+                defaultValue={( isEdit == false ? "" : ultimaUnidadSimple.duracion )}
+                name="duracion" onChange={handleTextChange} />
     
     
             

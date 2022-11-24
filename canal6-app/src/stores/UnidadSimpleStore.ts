@@ -18,8 +18,6 @@ class UnidadSimpleStore
         duracion: ''
     }
 
-
-
     @action showEdit = (edit: boolean) => { 
         this.isEdit = edit } // Esta variable lo voy a usar la parte de NuevaUnidadSimple
 

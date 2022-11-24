@@ -32,9 +32,11 @@ const ConsultaUnidadSimpleItem: React.FC<IProps> = ({UnidadSimple}) => {
         <Table.Cell collapsing>
           <Button onClick={OnEdit}> Editar </Button>
         </Table.Cell>
-        <Table.Cell>{UnidadSimple.id_categoria}</Table.Cell>
-        <Table.Cell>{UnidadSimple.id}</Table.Cell>
+        <Table.Cell>{UnidadSimple.id_categoria + '-' + UnidadSimple.id} </Table.Cell>
         <Table.Cell>{UnidadSimple.numero_topografico}</Table.Cell>
+        <Table.Cell>{UnidadSimple.nT_numerocasetes}</Table.Cell>
+        <Table.Cell>{UnidadSimple.nT_numerocinta}</Table.Cell>
+        <Table.Cell>{UnidadSimple.duracion}</Table.Cell>
       </Table.Row>
   )
 }

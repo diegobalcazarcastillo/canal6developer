@@ -1,7 +1,7 @@
 import React from 'react'
 import { Header, Icon, Segment } from 'semantic-ui-react'
 
-const NuevaUnidadSimpleHeader = () => {
+const ConsultaUnidadSimpleHeader = () => {
   return (
     <Segment clearing>
 
@@ -11,13 +11,14 @@ const NuevaUnidadSimpleHeader = () => {
         floated="left"
         style={{marginBottom: 0}}
     >
-        <span>
-            Unidad Simple {'\u00A0'}   
-            <Icon name={'new pied piper'} color="black" />
+        <span >
+            Consulta de unidades simples {'\u00A0'} 
+            <Icon name={'grid layout'} color="black" />
         </span>
+        
     </Header>
     </Segment>
   )
 }
 
-export default NuevaUnidadSimpleHeader
+export default ConsultaUnidadSimpleHeader

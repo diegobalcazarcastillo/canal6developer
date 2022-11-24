@@ -30,6 +30,7 @@ class CategoriaStore
         id_conjunto: 0,
         id_subconjunto: 0
     }
+    
     @action loadCategoria = async ()  => {
         /**/
         try{
