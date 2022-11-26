@@ -12,13 +12,13 @@ namespace Application.Categorias
         {
             public string id {get;set;}
             public string id_acervo {get;set;}
-            public int id_coleccion {get;set;}
-            public int id_serie {get;set;}
-            public int id_subserie {get;set;}
-            public int id_grupo {get;set;}
-            public int id_subgrupo {get;set;}
-            public int id_conjunto {get;set;}
-            public int id_subconjunto {get;set;}
+            public int? id_coleccion {get;set;}
+            public int? id_serie {get;set;}
+            public int? id_subserie {get;set;}
+            public int? id_grupo {get;set;}
+            public int? id_subgrupo {get;set;}
+            public int? id_conjunto {get;set;}
+            public int? id_subconjunto {get;set;}
         }
         public class Handler : IRequestHandler<Command>
         {
@@ -39,7 +39,7 @@ namespace Application.Categorias
                     id_grupo = request.id_grupo,
                     id_subgrupo = request.id_subgrupo,
                     id_conjunto = request.id_conjunto,
-                    id_subconjunto = request.id_subconjunto,
+                    id_subconjunto =  request.id_subconjunto  ,
                 };
                 _context.categoria.Add(newobj);
                 var success = await _context.SaveChangesAsync() > 0;

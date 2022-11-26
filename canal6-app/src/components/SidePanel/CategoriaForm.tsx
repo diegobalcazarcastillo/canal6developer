@@ -14,17 +14,15 @@ const CategoriaForm: React.FC = () => {
   const initialCategoria = {
     id: '',
     id_acervo: '',
-    id_coleccion: 0,
-    id_serie: 0,
-    id_subserie: 0,
-    id_grupo: 0,
-    id_subgrupo: 0,
-    id_conjunto: 0,
-    id_subconjunto: 0
+    id_coleccion: null,
+    id_serie: null,
+    id_subserie: null,
+    id_grupo: null,
+    id_subgrupo: null,
+    id_conjunto: null,
+    id_subconjunto: null
   }
   
-
-
   const {isModalVisible, ShowModal, createCategoria} = useContext(CategoriaStore);
   const [categoria, setCategoria] = useState<ICategoria>(initialCategoria)
   const [acervos, setAcervos] = useState<IAcervo[]>([]);
@@ -45,34 +43,32 @@ const CategoriaForm: React.FC = () => {
     agent.SubGrupo.List().then( (response) => {setSubGrupo(response);})
     agent.Conjunto.List().then( (response) => {setConjunto(response);})
     agent.SubConjunto.List().then( (response) => {setSubconjunto(response);})
-    
   }
   , []);
 
   
-  
-  const handleSelectChange = (event: SyntheticEvent, data: any) => { 
-    
-    setCategoria({...categoria, [data.name]: data.value});
-  }
+  const handleSelectChange = (event: SyntheticEvent, data: any) => { setCategoria({...categoria, [data.name]: data.value});}
 
   const handleSubmit = () => {
-    let NewCategoria = {
-      ...categoria,
-      id: 
-      categoria.id_acervo + '-' +
-      categoria.id_coleccion + '-' +
-      categoria.id_serie + '-' +
-      categoria.id_subserie + '-' +
-      categoria.id_grupo + '-' +
-      categoria.id_subgrupo + '-' +
-      categoria.id_conjunto + '-' +
-      categoria.id_subconjunto 
-    }
+    var idCategoria = 
+        categoria.id_acervo + '-' +
+        categoria.id_coleccion + '-' +
+        (categoria.id_serie == null ? '' : categoria.id_serie + '-') +
+        (categoria.id_subserie == null ? '' : categoria.id_subserie +  '-') +
+        (categoria.id_grupo == null ? '' : categoria.id_grupo + '-' ) +
+        (categoria.id_subgrupo == null ? '' : categoria.id_subgrupo +  '-' ) +
+        (categoria.id_conjunto == null ? '' : categoria.id_conjunto + '-' ) +
+        (categoria.id_subconjunto == null ? '' : categoria.id_subconjunto + '-' )
+    console.log(idCategoria)
+    console.log(idCategoria.slice(0, -1))
 
-   createCategoria(NewCategoria);
-   setCategoria(initialCategoria); //Reinicia cuando se vuelva a entrar
-   ShowModal(false);
+    var NewCategoria = {
+      ...categoria,
+      id: idCategoria.slice(-1) == '-' ? idCategoria.slice(0, -1) : idCategoria
+    }
+    createCategoria(NewCategoria);
+    setCategoria(initialCategoria); //Reinicia cuando se vuelva a entrar
+    ShowModal(false);
   }
 
 
@@ -83,8 +79,10 @@ const CategoriaForm: React.FC = () => {
           <Modal.Content>
             <Form>
               
-                <CategoriaFormItem handleSelectChange={handleSelectChange} colecciones={colecciones} placeholder='Acervo' name='id_acervo' />
-              
+                
+              <Form.Field>
+                <Select placeholder='Acervo' name="id_acervo" onChange={handleSelectChange} options={acervos.map(ds => {return {key: ds.id,text: ds.nombre,value: ds.id}})}></Select>
+              </Form.Field>
               
               <Form.Field>
                 <Select placeholder='Colección' name="id_coleccion" onChange={handleSelectChange} options={colecciones.map(ds => {return {key: ds.id,text: ds.nombre,value: ds.id}})}></Select>  
@@ -133,4 +131,27 @@ export default observer(CategoriaForm)
 
 
 
-/* <Select placeholder='Acervo' name="id_acervo" onChange={handleSelectChange} options={acervos.map(ds => {return {key: ds.id,text: ds.nombre,value: ds.id}})}></Select>*/ 
+/* <CategoriaFormItem handleSelectChange={handleSelectChange} colecciones={acervos} placeholder='Acervo' name='id_acervo' loadCatalogos={loadCatalogos} />
+const loadCatalogos = (acervoNueva: IAcervo) => {
+
+  /**Estamos experimentando con esta parte acervoNueva: IAcervo
+    setAcervos([
+      ...acervos,
+      acervoNueva
+    ]);
+
+
+    setAcervos([
+      ...acervos,
+      acervoNueva
+    ]);
+
+
+
+
+
+    console.log('Carga de catálogos');
+    
+  }
+
+*/ 

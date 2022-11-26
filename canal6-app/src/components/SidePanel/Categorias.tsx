@@ -16,17 +16,11 @@ interface IState {
 const Categorias = () => {
 
   const categoriaStore = useContext(CategoriaStore);
-
   const {categorias} = categoriaStore
 
-
-  
   useEffect(() => {
-
     categoriaStore.loadCategoria()
-    
   },[categoriaStore])
-
 
   const displayCategorias = (categorias: ICategoria[]) => {
     return (
@@ -37,20 +31,18 @@ const Categorias = () => {
     )
   }
 
- 
-    return (
-      <React.Fragment>
-      <Menu.Menu style={{ paddingBottom: '2em'}}>
-        <Menu.Item>
-          <span><Icon name="exchange" /> Categorías </span> {' '}
-          ({categorias.length}) <Icon name="add" onClick={()=> categoriaStore.ShowModal(true) }/>
-        </Menu.Item>
-      {displayCategorias(categorias)}
-      </Menu.Menu>
-      <CategoriaForm   />
-      </React.Fragment>
-    )
-  
+  return (
+    <React.Fragment>
+    <Menu.Menu style={{ paddingBottom: '2em'}}>
+      <Menu.Item>
+        <span><Icon name="exchange" /> Categorías </span> {' '}
+        ({categorias.length}) <Icon name="add" onClick={()=> categoriaStore.ShowModal(true) }/>
+      </Menu.Item>
+    {displayCategorias(categorias)}
+    </Menu.Menu>
+    <CategoriaForm   />
+    </React.Fragment>
+  ) 
 }
 
 

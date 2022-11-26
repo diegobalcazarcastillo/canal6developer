@@ -6,27 +6,12 @@ import { useNavigate } from 'react-router-dom'
 import CategoriaStore from '../../stores/CategoriaStore'
 import UnidadSimpleStore from '../../stores/UnidadSimpleStore'
 
-function nameCategoria(categoria: ICategoria): string { 
-    let strCategoria = categoria.id_acervo + "-" +
-    categoria.id_coleccion + "-" +
-    categoria.id_serie + "-" +
-    categoria.id_subserie + "-" +
-    categoria.id_grupo + "-" +
-    categoria.id_subgrupo + "-" +
-    categoria.id_conjunto + "-" +
-    categoria.id_subconjunto;
-    
-    return strCategoria
-  } ;
-
 interface IProps
 {
     categoria: ICategoria
 }
 
-
-const CategoriaItem: React.FC<IProps> = ({categoria}) => {
-  
+const CategoriaItem: React.FC<IProps> = ({categoria}) => {  
 const {setCategoria} = useContext(CategoriaStore);
 const {listUnidadSimple, showEdit}  = useContext(UnidadSimpleStore)
 const navigate = useNavigate();
@@ -34,11 +19,10 @@ const navigate = useNavigate();
   return (
    <Menu.Item
            key={categoria.id}
-           name={nameCategoria(categoria)}
+           name={categoria.id}
            style={{opacity: 0.7}}
-           
            >
-            # {nameCategoria(categoria)}
+            # {categoria.id}
             <Icon name="add circle" onClick={() => {
             setCategoria(categoria);
             showEdit(false);
