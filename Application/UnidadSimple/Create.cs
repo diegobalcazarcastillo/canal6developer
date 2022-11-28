@@ -34,7 +34,6 @@ namespace Application.UnidadSimple
                     NT_numerocasetes = request.NT_numerocasetes,
                     NT_numerocinta = request.NT_numerocinta,
                     duracion = request.duracion
-                    
                 };
                 _context.unidadsimple.Add(newobj);
                 var success = await _context.SaveChangesAsync() > 0;

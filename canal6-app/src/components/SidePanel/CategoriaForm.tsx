@@ -59,8 +59,13 @@ const CategoriaForm: React.FC = () => {
         (categoria.id_subgrupo == null ? '' : categoria.id_subgrupo +  '-' ) +
         (categoria.id_conjunto == null ? '' : categoria.id_conjunto + '-' ) +
         (categoria.id_subconjunto == null ? '' : categoria.id_subconjunto + '-' )
-    console.log(idCategoria)
-    console.log(idCategoria.slice(0, -1))
+      
+      
+      /*
+        Nota de utilidad: En Typescript esta función de slice funciona así
+        console.log(idCategoria.slice(-1)) ** Me entrega el último caracter de la cadena
+        console.log(idCategoria.slice(0, -1)) ** Me entrega la cadena sin el último caracter
+      */
 
     var NewCategoria = {
       ...categoria,

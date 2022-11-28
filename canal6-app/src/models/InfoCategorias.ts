@@ -39,3 +39,16 @@ export interface ISubconjunto {
     nombre: string
 } 
 
+
+export interface IInfoCategoria {
+
+    nombre_acervo: string,
+    nombre_coleccion: string,
+    nombre_serie: string,
+    nombre_subserie: string,
+    nombre_grupo: string,
+    nombre_subgrupo: string,
+    nombre_conjunto: string,
+    nombre_subconjunto: string
+
+}

@@ -8,7 +8,7 @@ axios.defaults.baseURL = 'http://localhost:5000/api';
 const responseBody = (response: AxiosResponse) => response.data
 
 const request = {
-    get: (url: string) => axios.get(url).then(responseBody),
+    get: (url: string) => { console.log(url); return axios.get(url).then(responseBody)}, //Es console lo voy a dejar para corroborar a que llama el API, pero se tiene que quitar en deinitiva
     post: (url: string, body: {}) => axios.post(url, body).then(responseBody),
     put: (url: string, body: {}) => axios.put(url, body).then(responseBody),
     delete: (url: string) => axios.delete(url).then(responseBody),
@@ -23,35 +23,44 @@ const Categorias = {
 
 const Acervo = {
     List: ()  : Promise<IAcervo[]> => request.get('/acervos'),
-    create: (categoria: IAcervo) => request.post('/acervos', categoria)
+   
+    create: (categoria: IAcervo) => request.post('/acervos', categoria),
+    single: (id: string) : Promise<IAcervo> =>  request.get('/acervos/' + id)
 }
 const Coleccion = {
     List: ()  : Promise<IColeccion[]> => request.get('/colecciones'),
-    create: (categoria: IColeccion) => request.post('/colecciones', categoria)
+    create: (categoria: IColeccion) => request.post('/colecciones', categoria),
+    single: (id: string) : Promise<IAcervo> =>  request.get('/colecciones/' + id),
 }
 const Serie = {
     List: ()  : Promise<ISerie[]> => request.get('/series'),
-    create: (categoria: ISerie) => request.post('/series', categoria)
+    create: (categoria: ISerie) => request.post('/series', categoria),
+    single: (id: string) : Promise<IAcervo> =>  request.get('/series/' + id)
 }
 const SubSerie = {
     List: ()  : Promise<ISubSerie[]> => request.get('/subseries'),
-    create: (categoria: ISubSerie) => request.post('/subseries', categoria)
+    create: (categoria: ISubSerie) => request.post('/subseries', categoria),
+    single: (id: string) : Promise<IAcervo> =>  request.get('/subseries/' + id)
 }
 const Grupo = {
     List: ()  : Promise<IGrupo[]> => request.get('/grupos'),
-    create: (categoria: IGrupo) => request.post('/grupos', categoria)
+    create: (categoria: IGrupo) => request.post('/grupos', categoria),
+    single: (id: string) : Promise<IAcervo> =>  request.get('/grupos/' + id)
 }
 const SubGrupo = {
     List: ()  : Promise<ISubGrupo[]> => request.get('/subgrupos'),
-    create: (categoria: ISubGrupo) => request.post('/subgrupos', categoria)
+    create: (categoria: ISubGrupo) => request.post('/subgrupos', categoria),
+    single: (id: string) : Promise<IAcervo> =>  request.get('/subgrupos/' + id)
 }
 const Conjunto = {
     List: ()  : Promise<IConjunto[]> => request.get('/conjuntos'),
-    create: (categoria: IConjunto) => request.post('/conjuntos', categoria)
+    create: (categoria: IConjunto) => request.post('/conjuntos', categoria),
+    single: (id: string) : Promise<IAcervo> =>  request.get('/conjuntos/' + id)
 }
 const SubConjunto = {
     List: ()  : Promise<ISubconjunto[]> => request.get('/subconjuntos'),
-    create: (categoria: ISubconjunto) => request.post('/subconjuntos', categoria)
+    create: (categoria: ISubconjunto) => request.post('/subconjuntos', categoria),
+    single: (id: string) : Promise<IAcervo> =>  request.get('/subconjuntos/' + id)
 }
 
 const UnidadSimple = {
