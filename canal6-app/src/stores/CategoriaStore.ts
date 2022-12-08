@@ -4,47 +4,14 @@ import { ICategoria } from "../models/categoria";
 import agent from '../api/agent'
 import { IUnidadSimple } from "../models/unidadsimple";
 import { IAcervo, IInfoCategoria } from "../models/InfoCategorias";
-import { isArrayBindingPattern } from "typescript";
 class CategoriaStore
 {
     constructor()  {
         makeObservable(this);
     }
 
-
-
-
-
-    @observable ultimaUnidadSimple: IUnidadSimple = {
-        id: -1,
-        numero_topografico: '',
-        id_categoria: '',
-        nT_numerocasetes: -1,
-        nT_numerocinta: -1,
-        duracion: '',
-        ie_casete: '',
-        soporte: '',
-        ie_cajaprotectora: '',
-        alcance_contenido: '',
-        dept_toponimicos: '',
-        dept_onomasticos: '',
-        dept_cronologicos: '',
-        dept_otros: '',
-        dept_tipoDRegistro: '',
-        lengua: '',
-        condiciones_acceso: '',
-        existencia_localizacion_copias: '',
-        unidades_descripcion_asociada: '',
-        documentos_asociados: '',
-        notas: '',
-        notas_control_interno: '',
-        fechaDRegistro: '',
-        fechaDUltimaAct: '',
-        Descriptores: ''
-    }
-
     @observable categorias: ICategoria[] = []
-    @observable isModalVisible: boolean = false
+    
     @observable categoriaElecta: ICategoria = {
         id: '',
         id_acervo: '',
@@ -56,6 +23,7 @@ class CategoriaStore
         id_conjunto: 0,
         id_subconjunto: 0
     }
+    
     @observable informacionCategoria: IInfoCategoria = {
     
         nombre_acervo : '', 
@@ -66,21 +34,15 @@ class CategoriaStore
         nombre_subgrupo : '',
         nombre_conjunto : '',
         nombre_subconjunto : ''
-
     }
 
-    
-    
     @action loadCategoria = async ()  => {
-        /**/
         try{
             var response = await agent.Categorias.List();
             response.forEach(categoria => this.categorias.push(categoria));
         }catch(err){console.log(err);}
     }
-    @action ShowModal = (show: boolean) => {
-        this.isModalVisible = show
-    }
+   
 
     @action createCategoria = async (categoria: ICategoria) => {
         try {
@@ -89,16 +51,8 @@ class CategoriaStore
         } catch(err) {console.log(err);}
     }
 
-    @action setUltimaUnidadSimple = (unidadSimple: IUnidadSimple) => {
-        this.ultimaUnidadSimple = unidadSimple
-        console.log(this.ultimaUnidadSimple.id)
-        console.log(this.ultimaUnidadSimple.id_categoria)
-    }
-
     @action setCategoria = async (categoria: ICategoria) => {
         this.categoriaElecta = categoria;
-        var response: IUnidadSimple = await agent.UnidadSimple.ultimo(this.categoriaElecta.id);
-        this.ultimaUnidadSimple = response;
     }
 
     @action setInfoCategoria = async () => 

@@ -11,6 +11,7 @@ class App extends Component {
     <Routes>
       <Route path='/Main' element={<MainCanal6/>} >
           <Route path="Nueva" element={<NuevaUnidadSimple />} />
+          <Route path="Editar" element={<NuevaUnidadSimple />} />
           <Route index path="Consulta" element={<ConsultaUnidadSimple />} />
       </Route>
     </Routes>

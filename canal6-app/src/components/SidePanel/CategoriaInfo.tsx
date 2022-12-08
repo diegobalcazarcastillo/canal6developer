@@ -1,10 +1,7 @@
-import React, {useContext, useEffect, useState} from 'react'
-import { ICategoria } from '../../models/categoria'
-import { Button, ButtonContent, Form, Grid, Icon, Input, Label, LabelDetailProps, Modal, Placeholder, Segment, Select } from 'semantic-ui-react'
+import React, {useContext} from 'react'
+import { Button, Grid, Icon, Modal } from 'semantic-ui-react'
 import CategoriaStore from '../../stores/CategoriaStore'
 import {observer} from 'mobx-react-lite'
-import agent from '../../api/agent'
-import { IAcervo } from '../../models/InfoCategorias'
 
 interface IProps
 {

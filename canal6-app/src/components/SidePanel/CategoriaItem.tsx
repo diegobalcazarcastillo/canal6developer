@@ -14,7 +14,7 @@ interface IProps
 
 const CategoriaItem: React.FC<IProps> = ({categoria}) => {  
 const {setCategoria, setInfoCategoria} = useContext(CategoriaStore); //esto debería de ser un estado, pero lo resuelvo después
-const {listUnidadSimple, showEdit}  = useContext(UnidadSimpleStore)
+const {listUnidadSimple, showEdit, setNuevaUnidadSImple}  = useContext(UnidadSimpleStore)
 const [mostrarInfo, setMostrarInfo] = useState<boolean>(false)
 
 const showModalInfo = (show: boolean) => {setMostrarInfo(show)}
@@ -31,7 +31,8 @@ const navigate = useNavigate();
             # {categoria.id}
             
             <Icon name="add circle" onClick={() => {
-            setCategoria(categoria);
+           // setCategoria(categoria); // yo creo que estas dos las puedo quitar... pero iré viendo
+            setNuevaUnidadSImple(categoria.id)
             showEdit(false);
             navigate("Nueva");
             } }/>
@@ -40,7 +41,7 @@ const navigate = useNavigate();
             navigate("Consulta");
             } }/>
             <Icon name="info" onClick={() => {
-            setCategoria(categoria);
+            setCategoria(categoria); // yo creo que estas dos las puedo quitar... pero iré viendo
             setInfoCategoria();
             showModalInfo(true)
             } }/>

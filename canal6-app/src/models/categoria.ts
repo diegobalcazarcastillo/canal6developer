@@ -9,3 +9,4 @@ export interface ICategoria {
     id_conjunto: number,
     id_subconjunto: number
 }
+

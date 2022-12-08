@@ -10,15 +10,7 @@ const ConsultaUnidadSimple = () => {
 
   const {UnidadesSimplesElectas} = useContext(UnidadSimpleStore)
  
-  const displayUnidadesSimples = (unidadesSimples: IUnidadSimple[]) => {
-    return (    
-    
-        unidadesSimples.map((UnidadSimple) => 
-          (
-            <ConsultaUnidadSimpleItem key={UnidadSimple.id} UnidadSimple={UnidadSimple} />
-          ))
-          )
-  }
+  const displayUnidadesSimples = (unidadesSimples: IUnidadSimple[]) => { return (unidadesSimples.map((UnidadSimple) => (<ConsultaUnidadSimpleItem key={UnidadSimple.id} UnidadSimple={UnidadSimple} />)))}
 
   return (
   <React.Fragment>

@@ -2,7 +2,6 @@ import React, {useContext} from 'react'
 import { Button, Table } from 'semantic-ui-react'
 import { IUnidadSimple } from '../../../models/unidadsimple'
 import UnidadSimpleStore from '../../../stores/UnidadSimpleStore'
-import CategoriaStore from '../../../stores/CategoriaStore'
 import { useNavigate } from 'react-router-dom'
 import {observer} from 'mobx-react-lite'
 
@@ -13,19 +12,13 @@ interface IProps
 }
 
 const ConsultaUnidadSimpleItem: React.FC<IProps> = ({UnidadSimple}) => {
-
-
-  const {showEdit} = useContext(UnidadSimpleStore)
-  const {setUltimaUnidadSimple} = useContext(CategoriaStore)
+  const {showEdit, setUnidadSimple } = useContext(UnidadSimpleStore)
   const navigate = useNavigate();
-  
   const OnEdit = () => {
-    console.log('Unidad = ' + UnidadSimple.nT_numerocasetes)
     showEdit(true);
-    setUltimaUnidadSimple(UnidadSimple)
-    navigate('/Main/Nueva')
+    setUnidadSimple(UnidadSimple)
+    navigate('/Main/Editar')
   }
-
 
   return (
     <Table.Row key={UnidadSimple.id}>

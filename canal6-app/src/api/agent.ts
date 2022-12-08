@@ -5,10 +5,11 @@ import { IAcervo, IColeccion, IConjunto, IGrupo, ISerie, ISubconjunto, ISubGrupo
 
 axios.defaults.baseURL = 'http://localhost:5000/api';
 
+const debug = false;
 const responseBody = (response: AxiosResponse) => response.data
 
 const request = {
-    get: (url: string) => { console.log(url); return axios.get(url).then(responseBody)}, //Es console lo voy a dejar para corroborar a que llama el API, pero se tiene que quitar en deinitiva
+    get: (url: string) => { if(debug) {console.log(url);} return axios.get(url).then(responseBody)}, //Es console lo voy a dejar para corroborar a que llama el API, pero se tiene que quitar en deinitiva
     post: (url: string, body: {}) => axios.post(url, body).then(responseBody),
     put: (url: string, body: {}) => axios.put(url, body).then(responseBody),
     delete: (url: string) => axios.delete(url).then(responseBody),

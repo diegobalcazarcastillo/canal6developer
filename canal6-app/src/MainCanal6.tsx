@@ -12,11 +12,8 @@ const MainCanal6 = () => {
     <Grid column="equal" className='app'>
       <ColorPanel/>
       <SidePanel />
-     
       <Grid.Column width={12} style={{ marginLeft: 400}}>
-        
-            <Outlet/>
-        
+        <Outlet/>
       </Grid.Column>
     </Grid>
   )

@@ -7,9 +7,12 @@ import CategoriaStore from '../../stores/CategoriaStore'
 import {observer} from 'mobx-react-lite'
 import CategoriaFormItem from './CategoriaFormItem'
 
+interface IProps {
+  ShowCreateCategoriaModal(show: boolean),
+  createCategoriaModal: boolean
+}
 
-
-const CategoriaForm: React.FC = () => {
+const CategoriaForm: React.FC<IProps> = ({ShowCreateCategoriaModal, createCategoriaModal}) => {
 
   const initialCategoria = {
     id: '',
@@ -22,8 +25,9 @@ const CategoriaForm: React.FC = () => {
     id_conjunto: null,
     id_subconjunto: null
   }
-  
-  const {isModalVisible, ShowModal, createCategoria} = useContext(CategoriaStore);
+
+ 
+
   const [categoria, setCategoria] = useState<ICategoria>(initialCategoria)
   const [acervos, setAcervos] = useState<IAcervo[]>([]);
   const [colecciones, setColecciones] = useState<IColeccion[]>([]);
@@ -34,20 +38,44 @@ const CategoriaForm: React.FC = () => {
   const [conjuntos, setConjunto] = useState<IConjunto[]>([]);
   const [subconjuntos, setSubconjunto] = useState<ISubconjunto[]>([]);
 
-  useEffect(() => {
-    agent.Acervo.List().then( (response) => {setAcervos(response);})
-    agent.Coleccion.List().then( (response) => {setColecciones(response);})
-    agent.Serie.List().then( (response) => {setSerie(response);})
-    agent.SubSerie.List().then( (response) => {setSubserie(response);})
-    agent.Grupo.List().then( (response) => {setGrupo(response);})
-    agent.SubGrupo.List().then( (response) => {setSubGrupo(response);})
-    agent.Conjunto.List().then( (response) => {setConjunto(response);})
-    agent.SubConjunto.List().then( (response) => {setSubconjunto(response);})
-  }
-  , []);
-
+  const {createCategoria} = useContext(CategoriaStore)
   
-  const handleSelectChange = (event: SyntheticEvent, data: any) => { setCategoria({...categoria, [data.name]: data.value});}
+  const OnOpenModal = (event: SyntheticEvent, data: object) => 
+  {
+    agent.Acervo.List().then( (response) => {setAcervos(response);}) /* Carga Primera cadena*/
+  }
+
+  const handleSelectChange = (event: SyntheticEvent, data: any) => { 
+    
+    setCategoria({...categoria, [data.name]: data.value}); 
+    
+    switch(data.name) {
+      case "id_acervo":
+        agent.Coleccion.List().then( (response) => {const filterobj = response.filter( (obj) => {return obj.id_acervo == data.value}); setColecciones(filterobj);})
+        break;
+      case "id_coleccion":
+        agent.Serie.List().then( (response) => {const filterobj = response.filter( (obj) => {return obj.id_coleccion == data.value}); setSerie(filterobj);})
+        break;
+      case "id_serie":
+        agent.SubSerie.List().then( (response) => {const filterobj = response.filter( (obj) => {return obj.id_serie == data.value}); setSubserie(filterobj);})
+        break;
+      case "id_subserie":
+        agent.Grupo.List().then( (response) => {const filterobj = response.filter( (obj) => {return obj.id_subserie == data.value}); setGrupo(filterobj);})
+        break;
+      case "id_grupo":
+        agent.SubGrupo.List().then( (response) => {const filterobj = response.filter( (obj) => {return obj.id_grupo == data.value}); setSubGrupo(filterobj);})
+        break;
+      case "id_subgrupo":
+        agent.Conjunto.List().then( (response) => {const filterobj = response.filter( (obj) => { return obj.id_subgrupo == data.value}); setConjunto(filterobj);})
+        break;
+      case "id_conjunto":
+          agent.SubConjunto.List().then( (response) => {const filterobj = response.filter( (obj) => {return obj.id_conjunto == data.value}); setSubconjunto(filterobj);})
+          break;
+    }
+
+    
+    
+  }
 
   const handleSubmit = () => {
     var idCategoria = 
@@ -73,18 +101,16 @@ const CategoriaForm: React.FC = () => {
     }
     createCategoria(NewCategoria);
     setCategoria(initialCategoria); //Reinicia cuando se vuelva a entrar
-    ShowModal(false);
+   
+    ShowCreateCategoriaModal(false);
   }
 
 
   return (
-    
-    <Modal basic open={isModalVisible}>
+    <Modal basic open={createCategoriaModal} onMount={OnOpenModal}>
           <Modal.Header>Agregar Categoría</Modal.Header>
           <Modal.Content>
             <Form>
-              
-                
               <Form.Field>
                 <Select placeholder='Acervo' name="id_acervo" onChange={handleSelectChange} options={acervos.map(ds => {return {key: ds.id,text: ds.nombre,value: ds.id}})}></Select>
               </Form.Field>
@@ -110,7 +136,7 @@ const CategoriaForm: React.FC = () => {
               </Form.Field>
 
               <Form.Field>
-                <Select placeholder='Conjunto' name="id_conjunto" onChange={handleSelectChange} options={conjuntos.map(ds => {return {key: ds.id,text: ds.nombre,value: ds.id}})}></Select>  
+                <Select placeholder='Conjunto' name="g" onChange={handleSelectChange} options={conjuntos.map(ds => {return {key: ds.id,text: ds.nombre,value: ds.id}})}></Select>  
               </Form.Field>
               
               <Form.Field>
@@ -123,40 +149,13 @@ const CategoriaForm: React.FC = () => {
               <Button basic color="green" onClick={handleSubmit} inverted>
                 <Icon name="checkmark" /> Agregar
               </Button>
-              <Button basic color="red" inverted onClick={() => ShowModal(false)}>
+              <Button basic color="red" inverted onClick={() => ShowCreateCategoriaModal(false)}>
                 <Icon name="remove" /> Cancel
               </Button>
             </Modal.Actions>
           
-        </Modal>
+    </Modal>
   )
 }
 
 export default observer(CategoriaForm)
-
-
-
-/* <CategoriaFormItem handleSelectChange={handleSelectChange} colecciones={acervos} placeholder='Acervo' name='id_acervo' loadCatalogos={loadCatalogos} />
-const loadCatalogos = (acervoNueva: IAcervo) => {
-
-  /**Estamos experimentando con esta parte acervoNueva: IAcervo
-    setAcervos([
-      ...acervos,
-      acervoNueva
-    ]);
-
-
-    setAcervos([
-      ...acervos,
-      acervoNueva
-    ]);
-
-
-
-
-
-    console.log('Carga de catálogos');
-    
-  }
-
-*/ 

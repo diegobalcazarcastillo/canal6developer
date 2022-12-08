@@ -1,20 +1,21 @@
 import React from 'react'
 import { Segment, Input, Button, Label, Grid } from 'semantic-ui-react'
 import { IUnidadSimple } from '../../../models/unidadsimple'
-import { ICategoria } from '../../../models/categoria'
-
 
 interface IProps
 {
-    categoriaElecta: ICategoria
     unidadaSimple: IUnidadSimple
     isEdit: boolean,
     handleUnidadSimpleChange(event: any) : void
     handleCreateEditUnidadSimple() : void
  }
 
+
+
+
+
 const NuevaUnidadSimpleAreaDDefinicion: React.FC<IProps> = 
-    ({categoriaElecta, unidadaSimple, isEdit, handleUnidadSimpleChange, handleCreateEditUnidadSimple}) => {
+    ({unidadaSimple, isEdit, handleUnidadSimpleChange, handleCreateEditUnidadSimple}) => {
 
     const createEditAddButton = (edit: boolean) => {
         var botonEdit;
@@ -39,24 +40,22 @@ const NuevaUnidadSimpleAreaDDefinicion: React.FC<IProps> =
        return botonEdit
     }
 
-    const handleTextChange = event => {
-        // Se manda el cambio a central
-        handleUnidadSimpleChange(event)
-    }
+    const handleTextChange = event => { handleUnidadSimpleChange(event)}
 
 
     return (
+       
         <Segment >
+            
             <Label circular color='teal' key='teal'>1</Label> <Label>Área de identificación</Label><br /><br />
             <Label style={{ marginBottom: '0.7em' }}  as='a' color='teal' ribbon>1.1 Código de referencia</Label>
-            <Input fluid style={{ marginBottom: '0.7em' }} value={ (isEdit == false ? categoriaElecta.id :  unidadaSimple.id_categoria ) + '-' + 
-                                                                   (isEdit == false ? isNaN(unidadaSimple.id) ? 1 : (unidadaSimple.id + 1) : unidadaSimple.id)} 
+            <Input fluid style={{ marginBottom: '0.7em' }}  value={unidadaSimple.id_categoria + '-' + unidadaSimple.id } 
                                                                    labelPosition="left" name="id_categoria"  onChange={handleTextChange}></Input>
 
             <Label style={{ marginBottom: '0.7em' }}  as='a' color='teal' ribbon> 1.2 Número topográfico</Label>
-            <Input fluid style={{ marginBottom: '0.7em' }} labelPosition="left" 
-                    placeholder={ (isEdit == false ? "Hi-XXXX" : "" )} 
-                    defaultValue={( isEdit == false ? "" : unidadaSimple.numero_topografico )}
+            <Input fluid style={{ marginBottom: '0.7em' }} labelPosition="left"  
+                    placeholder={ "Hi-XXXX" } 
+                    defaultValue={ isEdit === false ?  null : unidadaSimple.numero_topografico}
                     name="numero_topografico" onChange={handleTextChange}>
             </Input>
 
@@ -65,14 +64,14 @@ const NuevaUnidadSimpleAreaDDefinicion: React.FC<IProps> =
                 <Grid.Row columns={2}>
                     <Grid.Column>
                      <Input fluid style={{ marginBottom: '0.7em' }} label={<Label> # de casetes</Label>} labelPosition="left" 
-                     placeholder={(isEdit == false ? "1" : "" )} 
+                     placeholder={"1"} 
                      defaultValue={( isEdit == false ? "" : unidadaSimple.nT_numerocasetes )}
                      name="nT_numerocasetes" onChange={handleTextChange}/>
                     </Grid.Column>
 
                     <Grid.Column>
                         <Input fluid style={{ marginBottom: '0.7em' }} label={<Label> # de cinta </Label>} labelPosition="left" 
-                        placeholder={ (isEdit == false ? "1" : "" )} 
+                        placeholder={"1"} 
                         defaultValue={( isEdit == false ? "" : unidadaSimple.nT_numerocinta )} name="nT_numerocinta" onChange={handleTextChange}/>
                     </Grid.Column>
                 </Grid.Row>
