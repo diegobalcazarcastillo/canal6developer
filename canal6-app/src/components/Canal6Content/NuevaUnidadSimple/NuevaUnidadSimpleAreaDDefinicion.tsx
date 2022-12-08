@@ -10,10 +10,6 @@ interface IProps
     handleCreateEditUnidadSimple() : void
  }
 
-
-
-
-
 const NuevaUnidadSimpleAreaDDefinicion: React.FC<IProps> = 
     ({unidadaSimple, isEdit, handleUnidadSimpleChange, handleCreateEditUnidadSimple}) => {
 

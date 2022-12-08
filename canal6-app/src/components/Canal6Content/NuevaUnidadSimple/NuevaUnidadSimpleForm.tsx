@@ -12,7 +12,7 @@ import NuevaUnidadSimpleExLocCopias from './NuevaUnidadSimpleExLocCopias'
 const NuevaUnidadSimpleForm = () => {
   
   const navigate = useNavigate()
-  const {createUnidadSimple, setUnidadSimple, UnidadSimpleElecta, isEdit} = useContext(UnidadSimpleStore)
+  const {createUnidadSimple, setUnidadSimple, UnidadSimpleElecta, isEdit, setEdit} = useContext(UnidadSimpleStore)
 
   const handleUnidadSimpleChange = (event: any) => {
       setUnidadSimple({...UnidadSimpleElecta, 
@@ -23,11 +23,12 @@ const NuevaUnidadSimpleForm = () => {
     if(!isEdit)
     {
       createUnidadSimple(UnidadSimpleElecta)
-      navigate("/Main");
+      setEdit(true)
+      navigate("/Main/Editar");
     }
     else 
     {
-      console.log('Aquí vamos a editar, aún no implementado');
+      console.log(UnidadSimpleElecta.id);
     }
   }
     

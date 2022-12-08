@@ -44,7 +44,7 @@ class UnidadSimpleStore
     @action setNuevaUnidadSImple = async (id_categoria: string) => {
         var response: IUnidadSimple = await agent.UnidadSimple.ultimo(id_categoria);
         const initialUnidadSimple = {
-            id : response.id + 1,
+            id : isNaN(response.id) ? 1 : response.id + 1,
             id_categoria: id_categoria,
             numero_topografico: '',
             nT_numerocasetes: -1,
@@ -75,7 +75,7 @@ class UnidadSimpleStore
      console.log("Hi => " + this.UnidadSimpleElecta.numero_topografico)
 
     }
-    @action showEdit = (edit: boolean) => { this.isEdit = edit } // Esta variable lo voy a usar la parte de NuevaUnidadSimple
+    @action setEdit = (edit: boolean) => { this.isEdit = edit } // Esta variable lo voy a usar la parte de NuevaUnidadSimple
 
     @action createUnidadSimple = async (unidadSimple: IUnidadSimple) => {
         try {

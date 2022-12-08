@@ -12,10 +12,10 @@ interface IProps
 }
 
 const ConsultaUnidadSimpleItem: React.FC<IProps> = ({UnidadSimple}) => {
-  const {showEdit, setUnidadSimple } = useContext(UnidadSimpleStore)
+  const {setEdit, setUnidadSimple } = useContext(UnidadSimpleStore)
   const navigate = useNavigate();
   const OnEdit = () => {
-    showEdit(true);
+    setEdit(true);
     setUnidadSimple(UnidadSimple)
     navigate('/Main/Editar')
   }
