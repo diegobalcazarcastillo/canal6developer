@@ -1,4 +1,4 @@
-# canal6developer
+# Canal 6 Proyect w/ React and NetCore 5
 Canal 6 Developer for Diego Balcazar
 
 This project is Developed with NetCore 5 and React!
