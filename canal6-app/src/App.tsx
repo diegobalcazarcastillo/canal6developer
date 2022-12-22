@@ -5,6 +5,8 @@ import NuevaUnidadSimple from './components/Canal6Content/NuevaUnidadSimple/Nuev
 import { Route, Routes } from 'react-router-dom';
 import MainCanal6 from './MainCanal6';
 import ConsultaUnidadSimple from './components/Canal6Content/ConsultaUnidadSimple/ConsultaUnidadSimple';
+import Login from './Auth/Login';
+import Register from './Auth/Register' 
 class App extends Component {
   render() {
   return (
@@ -14,6 +16,8 @@ class App extends Component {
           <Route path="Editar" element={<NuevaUnidadSimple />} />
           <Route index path="Consulta" element={<ConsultaUnidadSimple />} />
       </Route>
+      <Route path='/Login' element={<Login />} ></Route>
+      <Route path='/Register' element={<Register />} ></Route>
     </Routes>
   )
 }
