@@ -15,7 +15,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Persistence;
-
+using MySql.Data.EntityFrameworkCore;
 namespace API
 {
     public class Startup
@@ -34,7 +34,7 @@ namespace API
 
             services.AddControllers();
             services.AddDbContext<DataContext> ( x =>
-                x.UseSqlServer(Configuration.GetConnectionString("Dev"))
+                x.UseMySQL(Configuration.GetConnectionString("Dev"))
             );
             services.AddMediatR(typeof(List.Handler).Assembly); //esto solo es para la inyección de dependencia de mediator
         

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "d:\\Desarrollo\\Canal6\\interface\\API\\API.csproj": {}
+    "D:\\Desarrollo\\Canal6\\interface\\API\\API.csproj": {}
   },
   "projects": {
-    "d:\\Desarrollo\\Canal6\\interface\\API\\API.csproj": {
+    "D:\\Desarrollo\\Canal6\\interface\\API\\API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "d:\\Desarrollo\\Canal6\\interface\\API\\API.csproj",
+        "projectUniqueName": "D:\\Desarrollo\\Canal6\\interface\\API\\API.csproj",
         "projectName": "API",
-        "projectPath": "d:\\Desarrollo\\Canal6\\interface\\API\\API.csproj",
+        "projectPath": "D:\\Desarrollo\\Canal6\\interface\\API\\API.csproj",
         "packagesPath": "C:\\Users\\zero1\\.nuget\\packages\\",
-        "outputPath": "d:\\Desarrollo\\Canal6\\interface\\API\\obj\\",
+        "outputPath": "D:\\Desarrollo\\Canal6\\interface\\API\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -32,8 +32,8 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "d:\\Desarrollo\\Canal6\\interface\\Application\\Application.csproj": {
-                "projectPath": "d:\\Desarrollo\\Canal6\\interface\\Application\\Application.csproj"
+              "D:\\Desarrollo\\Canal6\\interface\\Application\\Application.csproj": {
+                "projectPath": "D:\\Desarrollo\\Canal6\\interface\\Application\\Application.csproj"
               }
             }
           }
@@ -48,6 +48,10 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "dependencies": {
+            "Microsoft.EntityFrameworkCore.Design": {
+              "target": "Package",
+              "version": "[3.1.6, )"
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[5.6.3, )"
@@ -75,14 +79,14 @@
         }
       }
     },
-    "d:\\Desarrollo\\Canal6\\interface\\Application\\Application.csproj": {
+    "D:\\Desarrollo\\Canal6\\interface\\Application\\Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "d:\\Desarrollo\\Canal6\\interface\\Application\\Application.csproj",
+        "projectUniqueName": "D:\\Desarrollo\\Canal6\\interface\\Application\\Application.csproj",
         "projectName": "Application",
-        "projectPath": "d:\\Desarrollo\\Canal6\\interface\\Application\\Application.csproj",
+        "projectPath": "D:\\Desarrollo\\Canal6\\interface\\Application\\Application.csproj",
         "packagesPath": "C:\\Users\\zero1\\.nuget\\packages\\",
-        "outputPath": "d:\\Desarrollo\\Canal6\\interface\\Application\\obj\\",
+        "outputPath": "D:\\Desarrollo\\Canal6\\interface\\Application\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -103,11 +107,11 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "d:\\Desarrollo\\Canal6\\interface\\Domain\\Domain.csproj": {
-                "projectPath": "d:\\Desarrollo\\Canal6\\interface\\Domain\\Domain.csproj"
+              "D:\\Desarrollo\\Canal6\\interface\\Domain\\Domain.csproj": {
+                "projectPath": "D:\\Desarrollo\\Canal6\\interface\\Domain\\Domain.csproj"
               },
-              "d:\\Desarrollo\\Canal6\\interface\\Persistence\\Persistence.csproj": {
-                "projectPath": "d:\\Desarrollo\\Canal6\\interface\\Persistence\\Persistence.csproj"
+              "D:\\Desarrollo\\Canal6\\interface\\Persistence\\Persistence.csproj": {
+                "projectPath": "D:\\Desarrollo\\Canal6\\interface\\Persistence\\Persistence.csproj"
               }
             }
           }
@@ -146,14 +150,14 @@
         }
       }
     },
-    "d:\\Desarrollo\\Canal6\\interface\\Domain\\Domain.csproj": {
+    "D:\\Desarrollo\\Canal6\\interface\\Domain\\Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "d:\\Desarrollo\\Canal6\\interface\\Domain\\Domain.csproj",
+        "projectUniqueName": "D:\\Desarrollo\\Canal6\\interface\\Domain\\Domain.csproj",
         "projectName": "Domain",
-        "projectPath": "d:\\Desarrollo\\Canal6\\interface\\Domain\\Domain.csproj",
+        "projectPath": "D:\\Desarrollo\\Canal6\\interface\\Domain\\Domain.csproj",
         "packagesPath": "C:\\Users\\zero1\\.nuget\\packages\\",
-        "outputPath": "d:\\Desarrollo\\Canal6\\interface\\Domain\\obj\\",
+        "outputPath": "D:\\Desarrollo\\Canal6\\interface\\Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -210,14 +214,14 @@
         }
       }
     },
-    "d:\\Desarrollo\\Canal6\\interface\\Persistence\\Persistence.csproj": {
+    "D:\\Desarrollo\\Canal6\\interface\\Persistence\\Persistence.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "d:\\Desarrollo\\Canal6\\interface\\Persistence\\Persistence.csproj",
+        "projectUniqueName": "D:\\Desarrollo\\Canal6\\interface\\Persistence\\Persistence.csproj",
         "projectName": "Persistence",
-        "projectPath": "d:\\Desarrollo\\Canal6\\interface\\Persistence\\Persistence.csproj",
+        "projectPath": "D:\\Desarrollo\\Canal6\\interface\\Persistence\\Persistence.csproj",
         "packagesPath": "C:\\Users\\zero1\\.nuget\\packages\\",
-        "outputPath": "d:\\Desarrollo\\Canal6\\interface\\Persistence\\obj\\",
+        "outputPath": "D:\\Desarrollo\\Canal6\\interface\\Persistence\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -238,8 +242,8 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "d:\\Desarrollo\\Canal6\\interface\\Domain\\Domain.csproj": {
-                "projectPath": "d:\\Desarrollo\\Canal6\\interface\\Domain\\Domain.csproj"
+              "D:\\Desarrollo\\Canal6\\interface\\Domain\\Domain.csproj": {
+                "projectPath": "D:\\Desarrollo\\Canal6\\interface\\Domain\\Domain.csproj"
               }
             }
           }
@@ -254,9 +258,17 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "dependencies": {
-            "Microsoft.EntityFrameworkCore.SqlServer": {
+            "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[3.1.6, )"
+            },
+            "MySql.Data": {
+              "target": "Package",
+              "version": "[8.0.30, )"
+            },
+            "MySql.Data.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.22, )"
             }
           },
           "imports": [
