@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using System.Threading;
 using System.Linq;
-
+using Application.Errors;
 namespace Application.Acervos
 {
     public class Details
@@ -28,6 +28,11 @@ namespace Application.Acervos
 
             public async Task<List<ACERVO>> Handle(Query request, CancellationToken cancellationToken)
             {
+                var acervoElegido = await _context.acervo.Where(x => x.id == request.id).ToListAsync();
+                if(acervoElegido.Count == 0)
+                {
+                    throw new RestException(System.Net.HttpStatusCode.NotFound, new { acervo = "Not Found" } );
+                }
                 return await _context.acervo.Where(x => x.id == request.id).ToListAsync();
             }
         }

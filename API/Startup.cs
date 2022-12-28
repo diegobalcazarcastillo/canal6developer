@@ -16,6 +16,11 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Persistence;
 using MySql.Data.EntityFrameworkCore;
+using Domain;
+using Microsoft.AspNetCore.Identity;
+using FluentValidation.AspNetCore;
+using API.Middleware;
+
 namespace API
 {
     public class Startup
@@ -32,7 +37,11 @@ namespace API
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddControllers();
+            services.AddControllers()
+            .AddFluentValidation( asam => {
+                asam.RegisterValidatorsFromAssemblyContaining<Application.Acervos.Create>();
+            }); //aquí estamos agregando el fluentValidation con un assambly, como todo lo de Application
+
             services.AddDbContext<DataContext> ( x =>
                 x.UseMySQL(Configuration.GetConnectionString("Dev"))
             );
@@ -50,7 +59,13 @@ namespace API
                   }
                 );
             });
-        
+
+            //Servicios de IdentityFW
+            var builder = services.AddIdentityCore<AppUser>();
+            var identityBuilder = new IdentityBuilder(builder.UserType, builder.Services);
+            identityBuilder.AddEntityFrameworkStores<DataContext>();
+            identityBuilder.AddSignInManager<SignInManager<AppUser>>();
+            services.AddAuthentication();
         }
 
 
@@ -59,12 +74,16 @@ namespace API
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
+            // if (env.IsDevelopment())
+            // {
+            //     app.UseDeveloperExceptionPage();
+            // }
+
+            app.UseMiddleware<ErrorHandlingMiddleware>();
 
             app.UseRouting();
+
+            app.UseAuthentication(); // Servicios de Identity
 
             app.UseAuthorization();
 

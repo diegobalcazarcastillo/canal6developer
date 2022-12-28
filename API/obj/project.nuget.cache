@@ -1,9 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "mKPfwJENmz0rjjSKwfll28aea2v9pRoWfH0DJ+utdCZKTnxpKwvFXX/QXFwLtH+6ydlRNbpUa5ot5rIwM4q9Kw==",
+  "dgSpecHash": "RwPmdsJl79RObuTu8jg89dtMA3DS+pbN3MU0FyZnPdtMe5mv9iBO8sJSUTc8fhMjxjAJqK31li8W7cHU+paxIA==",
   "success": true,
   "projectFilePath": "D:\\Desarrollo\\Canal6\\interface\\API\\API.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\zero1\\.nuget\\packages\\fluentvalidation\\9.3.0\\fluentvalidation.9.3.0.nupkg.sha512",
+    "C:\\Users\\zero1\\.nuget\\packages\\fluentvalidation.aspnetcore\\9.3.0\\fluentvalidation.aspnetcore.9.3.0.nupkg.sha512",
+    "C:\\Users\\zero1\\.nuget\\packages\\fluentvalidation.dependencyinjectionextensions\\9.3.0\\fluentvalidation.dependencyinjectionextensions.9.3.0.nupkg.sha512",
     "C:\\Users\\zero1\\.nuget\\packages\\google.protobuf\\3.19.4\\google.protobuf.3.19.4.nupkg.sha512",
     "C:\\Users\\zero1\\.nuget\\packages\\k4os.compression.lz4\\1.2.6\\k4os.compression.lz4.1.2.6.nupkg.sha512",
     "C:\\Users\\zero1\\.nuget\\packages\\k4os.compression.lz4.streams\\1.2.6\\k4os.compression.lz4.streams.1.2.6.nupkg.sha512",

@@ -3,11 +3,28 @@ using System.Threading.Tasks;
 using MediatR;
 using Persistence;
 using Domain;
+using FluentValidation;
+
 namespace Application.Acervos
 {
 
     public class Create
     {
+
+
+        //Validaciones de los valores antes de ir a CQRS, esto se ejecuta antes de cualquier lógica del API
+        //Esto hace que el API responda con un error 400
+        public class CommandValidator : AbstractValidator<Command>
+        {
+            public CommandValidator()
+            {
+                RuleFor(x => x.nombre).NotEmpty();
+                RuleFor(x => x.id).NotEmpty();
+            }
+            
+        }
+
+
         public class Command : IRequest
         {
             public string id { get; set; }

@@ -54,3 +54,6 @@ D:\Desarrollo\Canal6\interface\API\bin\Debug\net5.0\Ubiety.Dns.Core.dll
 D:\Desarrollo\Canal6\interface\API\bin\Debug\net5.0\MySql.Data.EntityFrameworkCore.dll
 D:\Desarrollo\Canal6\interface\API\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Design.dll
 D:\Desarrollo\Canal6\interface\API\bin\Debug\net5.0\ZstdNet.dll
+D:\Desarrollo\Canal6\interface\API\bin\Debug\net5.0\FluentValidation.dll
+D:\Desarrollo\Canal6\interface\API\bin\Debug\net5.0\FluentValidation.AspNetCore.dll
+D:\Desarrollo\Canal6\interface\API\bin\Debug\net5.0\FluentValidation.DependencyInjectionExtensions.dll
