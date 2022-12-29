@@ -6,6 +6,7 @@ using Domain;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Application.Colecciones;
+using Application.Errors;
 
 namespace API.Controllers
 {
@@ -22,6 +23,8 @@ namespace API.Controllers
         public async Task<ActionResult<List<CATEGORIA>>> List()
         {
             //Llamar a mediator, siempre se envían eventos
+            //throw new RestException(System.Net.HttpStatusCode.NotFound, new { categoria = "error autogenerado"}); 
+             //throw new Exception("Server Error");
             return await _mediator.Send(new Application.Categorias.List.Query());
         }
         [HttpGet("{id}")]
@@ -32,6 +35,7 @@ namespace API.Controllers
         [HttpPost]
         public async Task<Unit> Create([FromBody] Application.Categorias.Create.Command command)
         {
+            
             return await _mediator.Send(command);
         }
 

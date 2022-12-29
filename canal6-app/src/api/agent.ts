@@ -2,8 +2,35 @@ import axios, { AxiosResponse } from 'axios'
 import { ICategoria } from '../models/categoria';
 import { IUnidadSimple} from '../models/unidadsimple'
 import { IAcervo, IColeccion, IConjunto, IGrupo, ISerie, ISubconjunto, ISubGrupo, ISubSerie } from '../models/InfoCategorias';
+import {history} from '../index'
+import { toast } from 'react-toastify';
+
 
 axios.defaults.baseURL = 'http://localhost:5000/api';
+//const navigate = useNavigate()
+//Obtener los errores de la aplicación
+axios.interceptors.response.use(undefined, (error) =>{ 
+    
+
+    /*Network Error */
+    if(error.message == 'Network Error' && !error.response)
+    {
+        toast.error('Network Error! Quizá el API esté abajo o no tengas una buena conexión de red')
+        return;
+    }
+
+    /**API ERROR */
+    const {status} = error.response
+    switch(status)
+    {
+        case 404:
+            history.push('/NotFound')
+            break;
+        case 500:
+            toast.error('Server error!')
+            break;
+    }
+} )
 
 const debug = false;
 const responseBody = (response: AxiosResponse) => response.data
