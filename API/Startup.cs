@@ -15,7 +15,8 @@ using Application.Interface;
 using Infraestructure.Security;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization;
 namespace API
 {
     public class Startup
@@ -32,7 +33,13 @@ namespace API
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddControllers()
+            services.AddControllers(
+                opt => {
+                    var policy = new AuthorizationPolicyBuilder()
+                    .RequireAuthenticatedUser().Build(); // Con esto garantizamos que pida JWT en todos los endpoints sin el decorador [Authorize] 
+                    opt.Filters.Add(new AuthorizeFilter(policy));
+                }
+            )
             .AddFluentValidation( asam => {
                 asam.RegisterValidatorsFromAssemblyContaining<Application.Acervos.Create>();
             }); //aquí estamos agregando el fluentValidation con un assambly, como todo lo de Application

@@ -21,7 +21,6 @@ namespace API.Controllers
             return await Mediator.Send(new Application.Acervos.List.Query());
         }
         [HttpGet("{id}")]
-        [Authorize]
         public async Task<ActionResult<List<ACERVO>>> Details(string id)
         {
             return await Mediator.Send(new Application.Acervos.Details.Query{id = id} );
