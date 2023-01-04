@@ -1,25 +1,20 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+
 using Application.Acervos;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.OpenApi.Models;
 using Persistence;
-using MySql.Data.EntityFrameworkCore;
 using Domain;
 using Microsoft.AspNetCore.Identity;
 using FluentValidation.AspNetCore;
 using API.Middleware;
+using Application.Interface;
+using Infraestructure.Security;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 namespace API
 {
@@ -49,14 +44,12 @@ namespace API
         
         //Agregar política CORS
             services.AddCors(opt => {
-                opt.AddPolicy("CorsPolicy",
-                  policy => {
+                opt.AddPolicy("CorsPolicy",policy => {
                     policy
                     .AllowAnyHeader()
                     .AllowAnyMethod()
                     .AllowAnyOrigin(); //("http://localhost:3000/");
-                
-                  }
+                }
                 );
             });
 
@@ -66,6 +59,20 @@ namespace API
             identityBuilder.AddEntityFrameworkStores<DataContext>();
             identityBuilder.AddSignInManager<SignInManager<AppUser>>();
             services.AddAuthentication();
+            var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(Configuration["TokenKey"]));
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer( opt => { //To call, add Header Authorization => Bearer XXX_TOKEN_XXX
+                opt.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = key,
+                    ValidateAudience = false,
+                    ValidateIssuer = false
+                };
+            });
+
+
+            services.AddScoped<IJWtGenerator, JwtGenerator>();
+            
         }
 
 
@@ -80,14 +87,11 @@ namespace API
             // }
 
             app.UseMiddleware<ErrorHandlingMiddleware>();
-
-            app.UseRouting();
+            app.UseRouting();            
+            app.UseCors("CorsPolicy"); // Cambiar esta política cuando se termina la aplicación
 
             app.UseAuthentication(); // Servicios de Identity
-
             app.UseAuthorization();
-
-            app.UseCors("CorsPolicy"); // Cambiar esta política cuando se termina la aplicación
 
             app.UseEndpoints(endpoints =>
             {

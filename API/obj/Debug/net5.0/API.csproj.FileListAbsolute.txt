@@ -57,3 +57,12 @@ D:\Desarrollo\Canal6\interface\API\bin\Debug\net5.0\ZstdNet.dll
 D:\Desarrollo\Canal6\interface\API\bin\Debug\net5.0\FluentValidation.dll
 D:\Desarrollo\Canal6\interface\API\bin\Debug\net5.0\FluentValidation.AspNetCore.dll
 D:\Desarrollo\Canal6\interface\API\bin\Debug\net5.0\FluentValidation.DependencyInjectionExtensions.dll
+D:\Desarrollo\Canal6\interface\API\bin\Debug\net5.0\Microsoft.IdentityModel.JsonWebTokens.dll
+D:\Desarrollo\Canal6\interface\API\bin\Debug\net5.0\Microsoft.IdentityModel.Logging.dll
+D:\Desarrollo\Canal6\interface\API\bin\Debug\net5.0\Microsoft.IdentityModel.Tokens.dll
+D:\Desarrollo\Canal6\interface\API\bin\Debug\net5.0\System.IdentityModel.Tokens.Jwt.dll
+D:\Desarrollo\Canal6\interface\API\bin\Debug\net5.0\Infraestructure.dll
+D:\Desarrollo\Canal6\interface\API\bin\Debug\net5.0\Infraestructure.pdb
+D:\Desarrollo\Canal6\interface\API\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+D:\Desarrollo\Canal6\interface\API\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.dll
+D:\Desarrollo\Canal6\interface\API\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll

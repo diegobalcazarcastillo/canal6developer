@@ -7,6 +7,7 @@ using System.Collections.Generic;
 
 using System.Threading.Tasks;
 using Application.Acervos;
+using Microsoft.AspNetCore.Authorization;
 
 namespace API.Controllers
 {
@@ -20,6 +21,7 @@ namespace API.Controllers
             return await Mediator.Send(new Application.Acervos.List.Query());
         }
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<ActionResult<List<ACERVO>>> Details(string id)
         {
             return await Mediator.Send(new Application.Acervos.Details.Query{id = id} );

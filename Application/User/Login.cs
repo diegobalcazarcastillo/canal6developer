@@ -5,6 +5,7 @@ using MediatR;
 using FluentValidation;
 using Microsoft.AspNetCore.Identity;
 using Application.Errors;
+using Application.Interface;
 
 namespace Application.User
 {
@@ -34,10 +35,13 @@ namespace Application.User
             private readonly UserManager<AppUser> UserManager ;
             private readonly SignInManager<AppUser> SignInManager ;
 
-            public Handler(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
+            private readonly IJWtGenerator jwtGenerator ;
+
+            public Handler(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, IJWtGenerator jwtGenerator)
             {
                 UserManager = userManager;
                 SignInManager = signInManager;
+                this.jwtGenerator = jwtGenerator;
             }
 
            
@@ -52,7 +56,7 @@ namespace Application.User
                     {
                         //TODO: Generate JWT
                         return new User {
-                            Token = "Will be token",
+                            Token = jwtGenerator.CreateToken(user),
                             UserName = user.UserName,
                             Email = user.Email
                         };
