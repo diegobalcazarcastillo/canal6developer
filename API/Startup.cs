@@ -59,7 +59,7 @@ namespace API
                 }
                 );
             });
-
+            
             //Servicios de IdentityFW
             var builder = services.AddIdentityCore<AppUser>();
             var identityBuilder = new IdentityBuilder(builder.UserType, builder.Services);
@@ -77,7 +77,7 @@ namespace API
                 };
             });
 
-
+            services.AddScoped<Application.Interfaces.IUserAccesor, Infraestructure.Security.UserAccesor>();
             services.AddScoped<IJWtGenerator, JwtGenerator>();
             
         }

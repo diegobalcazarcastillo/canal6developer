@@ -2,6 +2,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Application.Errors;
 using Application.Interface;
+using Application.Validators;
 using Domain;
 using FluentValidation;
 using MediatR;
@@ -20,13 +21,21 @@ namespace Application.User
 
         public class CommandValidator : AbstractValidator<Command>
         {
-            public CommandValidator()
+            private readonly UserManager<AppUser> usermanager_; //Inyectando dependencias
+            public CommandValidator(UserManager<AppUser> userManager)
             {
-                RuleFor(x => x.UserName).NotEmpty();
-                RuleFor(x => x.Email).NotEmpty();
-                RuleFor(x => x.Password).NotEmpty();
-
-
+                RuleFor(x => x.UserName).NotEmpty()
+                    .MustAsync(async (username, cancellation) => (
+                        await usermanager_.FindByNameAsync(username) == null
+                    )).WithMessage("Username already exists");
+                RuleFor(x => x.Email)
+                    .NotEmpty()
+                    .EmailAddress()
+                    .MustAsync(async (Email, cancellation) => (
+                        await usermanager_.FindByEmailAsync(Email) == null
+                    )).WithMessage("Email already exists");;
+                    RuleFor(x => x.Password).Password();
+                this.usermanager_ = userManager; 
             }
         }
 
@@ -47,15 +56,15 @@ namespace Application.User
 
             public async Task<User> Handle(Command request, CancellationToken cancellationToken)
             {
-                if(await UserManager.FindByEmailAsync(request.Email) != null)
-                {
-                    throw new RestException(System.Net.HttpStatusCode.BadRequest, new { Email = "Ya existe este Email"});
-                }
-
-                if(await UserManager.FindByNameAsync(request.UserName) != null)
-                {
-                    throw new RestException(System.Net.HttpStatusCode.BadRequest, new { Email = "Ya existe este Usuario"});
-                }
+                //if(await UserManager.FindByEmailAsync(request.Email) != null)
+                //{
+                //    throw new RestException(System.Net.HttpStatusCode.BadRequest, new { Email = "Ya existe este Email"});
+                //}
+//
+                //if(await UserManager.FindByNameAsync(request.UserName) != null)
+                //{
+                //    throw new RestException(System.Net.HttpStatusCode.BadRequest, new { Email = "Ya existe este Usuario"});
+                //}
 
                 var user = new AppUser {
                     Email = request.Email,
