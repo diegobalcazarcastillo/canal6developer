@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Du/gEUsT2anqpCXvhCFuGuojfGRFkW07hcnFgggbLKEUpl3tWM6VAClsKsoTH3W+HSlfdCKS8toopD3/Tcul2Q==",
+  "dgSpecHash": "gnJWlpbKGXzrAWBOOuKQFi+O8Zq+KrXg/JB/BFZY9N9XpC+Op0NBxXW9yI5U56/xH7F+Xa02Uv8tOY0MJHeMAQ==",
   "success": true,
-  "projectFilePath": "D:\\Desarrollo\\Canal6\\interface\\api\\API.csproj",
+  "projectFilePath": "D:\\Desarrollo\\Canal6\\interface\\APi\\API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\zero1\\.nuget\\packages\\fluentvalidation\\9.3.0\\fluentvalidation.9.3.0.nupkg.sha512",
     "C:\\Users\\zero1\\.nuget\\packages\\fluentvalidation.aspnetcore\\9.3.0\\fluentvalidation.aspnetcore.9.3.0.nupkg.sha512",
