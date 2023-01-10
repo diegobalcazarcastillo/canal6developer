@@ -2,10 +2,13 @@ import { observable, action, makeObservable} from "mobx";
 import { createContext } from "react";
 import agent from '../api/agent'
 import { IUnidadSimple } from "../models/unidadsimple";
-class UnidadSimpleStore
+import { RootStore } from "./RootStore";
+export default class UnidadSimpleStore
 {
-    constructor()  {
+    rootStore: RootStore;
+    constructor(rootStore: RootStore)  {
         makeObservable(this);
+        this.rootStore = rootStore
     }
     @observable isEdit: boolean = false; //Esta bandera es para el componente de Nueva/Editar, le indica su comportamiento
     @observable UnidadesSimplesElectas: IUnidadSimple[] = []; //Determina las unidades electas para mostrar en el componente de consulta
@@ -92,4 +95,4 @@ class UnidadSimpleStore
     }
 }
 
-export default createContext(new UnidadSimpleStore)
+// 

@@ -4,6 +4,7 @@ import { IUnidadSimple} from '../models/unidadsimple'
 import { IAcervo, IColeccion, IConjunto, IGrupo, ISerie, ISubconjunto, ISubGrupo, ISubSerie } from '../models/InfoCategorias';
 import {history} from '../index'
 import { toast } from 'react-toastify';
+import { IUser, IUserFormValues } from '../models/users';
 
 
 axios.defaults.baseURL = 'http://localhost:5000/api';
@@ -97,6 +98,14 @@ const UnidadSimple = {
     ultimo: (id_categoria: string) : Promise<IUnidadSimple> => request.get('/unidadsimple/ultimo/' + id_categoria) // Da la última Unidad simple registrada
 }
 
+
+
+const user = {
+    login: (user: IUserFormValues) : Promise<IUser> => request.post('/user/login', user),
+    register: (user: IUserFormValues) : Promise<IUser> => request.post('/user/register', user),
+    current: () : Promise<IUser> => request.get('/user')
+}
+
 export default
 {
     Acervo,
@@ -108,5 +117,6 @@ export default
     SubGrupo,
     Conjunto,
     SubConjunto,
-    UnidadSimple
+    UnidadSimple,
+    user
 }

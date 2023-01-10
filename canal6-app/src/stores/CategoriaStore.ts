@@ -1,13 +1,17 @@
-import { observable, action, makeObservable} from "mobx";
+import { observable, action, makeObservable, toJS} from "mobx";
 import { createContext } from "react";
 import { ICategoria } from "../models/categoria";
 import agent from '../api/agent'
 import { IUnidadSimple } from "../models/unidadsimple";
 import { IAcervo, IInfoCategoria } from "../models/InfoCategorias";
-class CategoriaStore
+import { RootStore } from "./RootStore";
+export default class CategoriaStore
 {
-    constructor()  {
+
+    rootStore: RootStore; //Inyectando la dependencia de rootStore, permite acceder a todos los store de todos los lados
+    constructor(rootStore: RootStore)  {
         makeObservable(this);
+        this.rootStore = rootStore
     }
 
     @observable categorias: ICategoria[] = []
@@ -29,4 +33,4 @@ class CategoriaStore
    
 }
 
-export default createContext(new CategoriaStore)
+// export default createContext(new CategoriaStore)

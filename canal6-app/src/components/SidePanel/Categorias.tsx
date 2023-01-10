@@ -3,9 +3,9 @@ import { Icon, Menu } from 'semantic-ui-react'
 import { ICategoria } from '../../models/categoria'
 import CategoriaForm from './CategoriaForm'
 import CategoriaItem from './CategoriaItem'
-import CategoriaStore from '../../stores/CategoriaStore'
+import {RootStoreContext} from '../../stores/RootStore'
 import {observer} from 'mobx-react-lite'
-import { create } from 'domain'
+
 
 //Interface del componente
 
@@ -17,18 +17,18 @@ interface IState {
 const Categorias = () => {
 
 
-  
+  const rootStore = useContext(RootStoreContext);
   const [createCategoriaModal, setCreateCategoriaModal] = useState<boolean>(false);
   const ShowCreateCategoriaModal = (show: boolean) => {
     setCreateCategoriaModal(show)
   }
 
-  const {categorias, loadCategoria} = useContext(CategoriaStore);
+  const {categorias, loadCategoria} = rootStore.categoriaStore;
   //const {categorias} = categoriaStore
 
   useEffect(() => {
     loadCategoria()
-  },[])
+  },[loadCategoria])
 
   const displayCategorias = (categorias: ICategoria[]) => {
     return (

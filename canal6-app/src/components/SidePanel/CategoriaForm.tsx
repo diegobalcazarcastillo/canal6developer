@@ -3,7 +3,7 @@ import { Button, Form, Icon, Modal, Placeholder, Select } from 'semantic-ui-reac
 import { IAcervo, IColeccion, IConjunto, IGrupo, ISerie, ISubconjunto, ISubGrupo, ISubSerie } from '../../models/InfoCategorias'
 import agent from '../../api/agent'
 import { ICategoria } from '../../models/categoria'
-import CategoriaStore from '../../stores/CategoriaStore'
+import {RootStoreContext} from '../../stores/RootStore'
 import {observer} from 'mobx-react-lite'
 import CategoriaFormItem from './CategoriaFormItem'
 
@@ -38,7 +38,8 @@ const CategoriaForm: React.FC<IProps> = ({ShowCreateCategoriaModal, createCatego
   const [conjuntos, setConjunto] = useState<IConjunto[]>([]);
   const [subconjuntos, setSubconjunto] = useState<ISubconjunto[]>([]);
 
-  const {createCategoria} = useContext(CategoriaStore)
+  const RootStore = useContext(RootStoreContext)
+  const {createCategoria} = RootStore.categoriaStore
   
   const OnOpenModal = (event: SyntheticEvent, data: object) => 
   {

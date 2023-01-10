@@ -2,13 +2,14 @@ import React, {useContext} from 'react'
 import { Table } from 'semantic-ui-react'
 import { IUnidadSimple } from '../../../models/unidadsimple'
 import {observer} from 'mobx-react-lite'
-import UnidadSimpleStore from '../../../stores/UnidadSimpleStore'
+import {RootStoreContext} from '../../../stores/RootStore'
 import ConsultaUnidadSimpleItem from './ConsultaUnidadSimpleItem'
 import ConsultaUnidadSimpleHeader from './ConsultaUnidadSimpleHeader'
 
 const ConsultaUnidadSimple = () => {
 
-  const {UnidadesSimplesElectas} = useContext(UnidadSimpleStore)
+  const rootStore = useContext(RootStoreContext)
+  const {UnidadesSimplesElectas} = rootStore.unidadSimpleStore
  
   const displayUnidadesSimples = (unidadesSimples: IUnidadSimple[]) => { return (unidadesSimples.map((UnidadSimple) => (<ConsultaUnidadSimpleItem key={UnidadSimple.id} UnidadSimple={UnidadSimple} />)))}
 

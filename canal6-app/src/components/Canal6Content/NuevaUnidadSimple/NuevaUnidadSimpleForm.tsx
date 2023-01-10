@@ -1,6 +1,6 @@
 import React, {useContext} from 'react'
 import NuevaUnidadSimpleAreaDDefinicion from './NuevaUnidadSimpleAreaDDefinicion'
-import UnidadSimpleStore from '../../../stores/UnidadSimpleStore'
+import {RootStoreContext} from '../../../stores/RootStore'
 import { IUnidadSimple } from '../../../models/unidadsimple'
 import { useNavigate } from 'react-router-dom'
 import {observer} from 'mobx-react-lite'
@@ -11,8 +11,9 @@ import NuevaUnidadSimpleExLocCopias from './NuevaUnidadSimpleExLocCopias'
 
 const NuevaUnidadSimpleForm = () => {
   
+  const rootStore = useContext(RootStoreContext)
   const navigate = useNavigate()
-  const {createUnidadSimple, setUnidadSimple, UnidadSimpleElecta, isEdit, setEdit} = useContext(UnidadSimpleStore)
+  const {createUnidadSimple, setUnidadSimple, UnidadSimpleElecta, isEdit, setEdit} = rootStore.unidadSimpleStore
 
   const handleUnidadSimpleChange = (event: any) => {
       setUnidadSimple({...UnidadSimpleElecta, 

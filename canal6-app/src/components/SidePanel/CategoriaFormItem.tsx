@@ -1,6 +1,6 @@
 import React, {SyntheticEvent, useState} from 'react'
-import { Button, Form, Icon, Input, Select } from 'semantic-ui-react'
-import { IAcervo, IColeccion } from '../../models/InfoCategorias'
+import { Form, Icon} from 'semantic-ui-react'
+import { IAcervo} from '../../models/InfoCategorias'
 
 
 /** Componente incompleto, lo tengo que terminar, este debe de darme la posibilidad de crear nuevos elementos*/

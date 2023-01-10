@@ -2,7 +2,15 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { Button, Form, Grid, Header, Icon, Message, Segment } from 'semantic-ui-react'
 
+import {Form as FinalForm, Field} from 'react-final-form'
+
 const Login = () => {
+
+  const showResult = async (values: any) => {
+    console.log(values)
+  }
+
+
   return (
     <Grid textAlign='center' verticalAlign='middle' className='app'>
       <Grid.Column style={{ maxWidth: 450}}>
@@ -10,10 +18,11 @@ const Login = () => {
           <Icon name="code branch" color="violet" />
           Registro de Canal 6
         </Header>
-        <Form size="large">
+        <FinalForm
+        onSubmit={showResult}
+        render={ ({handleSubmit}) => (
+        <Form size="large" onSubmit={handleSubmit}>
           <Segment stacked>
-            
-             
             <Form.Input
             fluid
             name="email"
@@ -37,6 +46,9 @@ const Login = () => {
             </Button>
           </Segment>
         </Form>
+        )} />
+
+
         <Message>
             Regístrate <Link to="/Register">aquí</Link>
         </Message>

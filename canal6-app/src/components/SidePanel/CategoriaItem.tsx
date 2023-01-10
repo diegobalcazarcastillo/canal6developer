@@ -3,7 +3,7 @@ import { Icon, Menu, Segment } from 'semantic-ui-react'
 import { ICategoria } from '../../models/categoria'
 import { observer } from 'mobx-react-lite'
 import { useNavigate } from 'react-router-dom'
-import UnidadSimpleStore from '../../stores/UnidadSimpleStore'
+import {RootStoreContext} from '../../stores/RootStore'
 import CategoriaInfo from './CategoriaInfo'
 
 interface IProps
@@ -13,7 +13,8 @@ interface IProps
 
 const CategoriaItem: React.FC<IProps> = ({categoria}) => {  
 
-const {listUnidadSimple, setEdit, setNuevaUnidadSImple} = useContext(UnidadSimpleStore)
+const rootStore = useContext(RootStoreContext)
+const {listUnidadSimple, setEdit, setNuevaUnidadSImple} = rootStore.unidadSimpleStore
 const [info, setInfo] = useState<boolean>(false)
 
 const navigate = useNavigate();

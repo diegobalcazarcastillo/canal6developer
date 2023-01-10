@@ -1,7 +1,7 @@
 import React, {useContext} from 'react'
 import { Button, Table } from 'semantic-ui-react'
 import { IUnidadSimple } from '../../../models/unidadsimple'
-import UnidadSimpleStore from '../../../stores/UnidadSimpleStore'
+import {RootStoreContext} from '../../../stores/RootStore'
 import { useNavigate } from 'react-router-dom'
 import {observer} from 'mobx-react-lite'
 
@@ -12,7 +12,8 @@ interface IProps
 }
 
 const ConsultaUnidadSimpleItem: React.FC<IProps> = ({UnidadSimple}) => {
-  const {setEdit, setUnidadSimple } = useContext(UnidadSimpleStore)
+  const rootStore = useContext(RootStoreContext)
+  const {setEdit, setUnidadSimple } = rootStore.unidadSimpleStore
   const navigate = useNavigate();
   const OnEdit = () => {
     setEdit(true);
