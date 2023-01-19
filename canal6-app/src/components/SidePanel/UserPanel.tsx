@@ -1,17 +1,25 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import {Dropdown, Grid, Header, Icon} from 'semantic-ui-react'
+import { RootStoreContext } from '../../stores/RootStore'
 
 const UserPanel = () => {
  
+    const rootStore = useContext(RootStoreContext)
+    const { user, logout } = rootStore.userStore
   const dropdwonOptions = () => [
      {
         key: 'user',
         text: (
             <span>
-                Soy el <strong>User</strong>
+                Mail <strong> {user == null ? "" : user.email} </strong>
             </span>
         ),
         disabled: true
+     },
+     {
+        key: 'signout',
+        text: (<span onClick={logout}>Salir</span>),
+        disabled: false
      },
      {
         key: 'avatar',
@@ -36,7 +44,7 @@ const UserPanel = () => {
             </Grid.Row>
             <Header style={{ padding: '0.25em'}} as="h4"  inverted>
                 <Dropdown
-                 trigger={<span>User</span>}
+                 trigger={<span>{user == null ? "" : user.userName}</span>}
                  options={dropdwonOptions()}
                 >
                     

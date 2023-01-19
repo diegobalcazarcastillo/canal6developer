@@ -1,7 +1,9 @@
-import { action, computed, makeObservable, observable } from "mobx";
+import { action, computed, makeObservable, observable, runInAction } from "mobx";
 import agent from "../api/agent";
 import { IUser, IUserFormValues } from "../models/users";
 import { RootStore } from "./RootStore";
+import { history } from "../index";
+
 
 export default class UserStore 
 {
@@ -22,11 +24,23 @@ export default class UserStore
         try
         {
             var user = await agent.user.login(values)
-            this.user = user
+            runInAction(() => { // Aquí uso RunInAction porque por regla todo lo que está después de un Action debe de estar en la función de run, no debe de haber funciones nuevas
+                this.user = user
+                history.push("/Main")
+                this.rootStore.commonStore.setToken(user.token)
+            })
+            
         }
-        catch(error) {console.log(error)}
+        catch(error) {throw error}
         
 
+    }
+
+    @action logout = () => {
+        
+        this.rootStore.commonStore.setToken(null)
+        this.user = null
+        history.push("/Login")
     }
 
 

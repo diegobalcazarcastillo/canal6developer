@@ -31,7 +31,21 @@ axios.interceptors.response.use(undefined, (error) =>{
             toast.error('Server error!')
             break;
     }
+
+    throw error.response
+    
 } )
+
+//Asignar el Token, se agrega como Header en cada petición
+axios.interceptors.request.use((config) => {
+    const token = window.localStorage.getItem('jwt');
+    if(token)
+        config.headers.authorization = `Bearer ${token}`
+    return config
+}, (error) => Promise.reject(error)
+)
+
+
 
 const debug = false;
 const responseBody = (response: AxiosResponse) => response.data
