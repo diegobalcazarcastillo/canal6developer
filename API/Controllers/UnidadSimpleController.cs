@@ -6,6 +6,7 @@ using Domain;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Application.UnidadSimple;
+using Microsoft.AspNetCore.Authorization;
 
 namespace API.Controllers
 {
@@ -44,6 +45,19 @@ namespace API.Controllers
         {
             return await _mediator.Send(command);
         }
+
+
+        [HttpPut]
+        [AllowAnonymous]
+        public async Task<Unit> Update([FromBody] Application.UnidadSimple.Update.Command command)
+        {
+            return await _mediator.Send(command);
+        }
+
+       
+        
+
+    
 
     }
 }

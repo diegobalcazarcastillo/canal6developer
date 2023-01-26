@@ -86,6 +86,17 @@ export default class UnidadSimpleStore
         console.log('Unidad Simple Creada (OK)');
         } catch(err) {console.log(err);}
     }
+
+    @action updateUnidadSimple = async (unidadSimple: IUnidadSimple) => 
+    {
+        try {
+            await agent.UnidadSimple.update(unidadSimple);
+            console.log('Actualizando Unidad Simple');
+            } catch(err) {console.log(err);}
+    }
+
+
+
     @action listUnidadSimple = async (id_categoria: string) => 
     {
         try {

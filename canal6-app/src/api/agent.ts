@@ -66,7 +66,6 @@ const Categorias = {
 
 const Acervo = {
     List: ()  : Promise<IAcervo[]> => request.get('/acervos'),
-   
     create: (categoria: IAcervo) => request.post('/acervos', categoria),
     single: (id: string) : Promise<IAcervo> =>  request.get('/acervos/' + id)
 }
@@ -108,8 +107,10 @@ const SubConjunto = {
 
 const UnidadSimple = {
     List: (id_categoria: string)  : Promise<IUnidadSimple[]> => request.get('/unidadsimple/list/' + id_categoria), // Da la lista de Unidades simples de una categoría
-    create: (categoria: IUnidadSimple) => request.post('/unidadsimple', categoria),
-    ultimo: (id_categoria: string) : Promise<IUnidadSimple> => request.get('/unidadsimple/ultimo/' + id_categoria) // Da la última Unidad simple registrada
+    create: (unidadSimple: IUnidadSimple) => request.post('/unidadsimple', unidadSimple),
+    ultimo: (id_categoria: string) : Promise<IUnidadSimple> => request.get('/unidadsimple/ultimo/' + id_categoria), // Da la última Unidad simple registrada
+    update: (unidadSimple: IUnidadSimple) => request.put('/unidadsimple', unidadSimple)
+
 }
 
 

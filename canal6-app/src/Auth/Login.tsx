@@ -63,9 +63,7 @@ const Login = () => {
               Agregar usuario
             </Button>
             {submitError && (<Label color="red" basic content={submitError.statusText}/>)}
-            <pre>
-               {JSON.stringify(form.getState(), undefined, 2)}
-              </pre>
+            
           </Segment>
         </Form>
         )} />

@@ -15,12 +15,13 @@ const NuevaUnidadSimpleForm = () => {
   const navigate = useNavigate()
   const {createUnidadSimple, setUnidadSimple, UnidadSimpleElecta, isEdit, setEdit} = rootStore.unidadSimpleStore
 
-  const handleUnidadSimpleChange = (event: any) => {
-      setUnidadSimple({...UnidadSimpleElecta, 
+  const handleUnidadSimpleChange = (event: any) => {  
+    setUnidadSimple({...UnidadSimpleElecta, 
       [event.target.name]: event.target.value});
   }
 
   const handleCreateEditUnidadSimple = () => {
+    
     if(!isEdit)
     {
       createUnidadSimple(UnidadSimpleElecta)
@@ -29,7 +30,11 @@ const NuevaUnidadSimpleForm = () => {
     }
     else 
     {
-      console.log(UnidadSimpleElecta.id);
+      console.log(UnidadSimpleElecta.id)
+      console.log(UnidadSimpleElecta.soporte)
+    
+
+
     }
   }
     
@@ -38,7 +43,7 @@ const NuevaUnidadSimpleForm = () => {
     if(mostrar) {
         return (
         <>
-        <NuevaUnidadSimpleAreaCaractFisica unidadSimple={ultimaUnidadSimple} />
+        <NuevaUnidadSimpleAreaCaractFisica unidadSimple={ultimaUnidadSimple} handleUnidadSimpleChange={handleUnidadSimpleChange}  />
         <NuevaUnidadSimpleContenidoEstructuras unidadSimple={ultimaUnidadSimple} />
         <NuevaUnidadSimpleCondiciones unidadSimple={ultimaUnidadSimple} />
         <NuevaUnidadSimpleExLocCopias unidadSimple={ultimaUnidadSimple} />

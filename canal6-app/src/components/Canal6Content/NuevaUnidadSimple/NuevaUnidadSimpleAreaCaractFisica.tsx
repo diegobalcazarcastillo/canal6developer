@@ -5,10 +5,13 @@ import { IUnidadSimple } from '../../../models/unidadsimple'
 
 interface IProps
 {
-  unidadSimple: IUnidadSimple
+  unidadSimple: IUnidadSimple,
+  handleUnidadSimpleChange(event: any) : void
 }
 
-const NuevaUnidadSimpleAreaCaractFisica: React.FC<IProps> = ({unidadSimple}) => {
+const NuevaUnidadSimpleAreaCaractFisica: React.FC<IProps> = ({unidadSimple, handleUnidadSimpleChange}) => {
+  const handleTextChange = event => { handleUnidadSimpleChange(event)}
+  
   return (
     
    
@@ -17,7 +20,7 @@ const NuevaUnidadSimpleAreaCaractFisica: React.FC<IProps> = ({unidadSimple}) => 
       <Label circular color='blue' key='blue'>2</Label> <Label>Área de características físicas</Label><br /><br />
     <Label style={{ marginBottom: '0.7em' }}  as='a' color='blue' ribbon>2.1 Soporte</Label>
     <Input fluid style={{ marginBottom: '0.7em' }} 
-    defaultValue={unidadSimple.soporte}
+    defaultValue={unidadSimple.soporte} onChange={handleTextChange} name="soporte"
     ></Input>
 
     <Label style={{ marginBottom: '0.7em' }} as='a' color='blue' ribbon> 2.2 Inscripciones y/o etiquetas</Label>
