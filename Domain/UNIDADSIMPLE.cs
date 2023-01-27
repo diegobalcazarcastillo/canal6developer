@@ -31,8 +31,10 @@ namespace Domain
         public string documentos_asociados {get;set;}
         public string notas {get;set;}
         public string notas_control_interno {get;set;}
-        public string fechaDRegistro {get;set;}
-        public string fechaDUltimaAct {get;set;}
+        public DateTime? fechaDRegistro {get;set;}
+        public DateTime? fechaDUltimaAct {get;set;}
         public string Descriptores {get;set;}
+        public string UserEdit {get;set;}
+        public string UserCreate {get;set;}
     }
 }

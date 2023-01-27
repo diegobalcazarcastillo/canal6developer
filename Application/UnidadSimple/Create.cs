@@ -10,22 +10,25 @@ namespace Application.UnidadSimple
     {
         public class Command : IRequest
         {
-            public int id {get;set;}
+            public int id { get; set; }
             public string id_categoria { get; set; }
             public string numero_topografico { get; set; }
             public int NT_numerocasetes { get; set; }
             public int NT_numerocinta { get; set; }
-            public string duracion {get;set;} 
+            public string duracion { get; set; }
         }
         public class Handler : IRequestHandler<Command>
         {
             private DataContext _context;
-            public Handler(DataContext context)
+            private readonly Application.Interfaces.IUserAccesor UserAccesor;
+            public Handler(DataContext context, Application.Interfaces.IUserAccesor UserAccesor)
             {
+                this.UserAccesor = UserAccesor;
                 _context = context ?? throw new System.ArgumentNullException(nameof(context));
             }
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
+                var user = UserAccesor.GetCurrentUserName();
                 var newobj = new UNIDADSIMPLE
                 {
                     id = request.id,
@@ -33,6 +36,8 @@ namespace Application.UnidadSimple
                     numero_topografico = request.numero_topografico,
                     NT_numerocasetes = request.NT_numerocasetes,
                     NT_numerocinta = request.NT_numerocinta,
+                    fechaDRegistro = System.DateTime.Now,
+                    UserCreate = user,
                     duracion = request.duracion
                 };
                 _context.unidadsimple.Add(newobj);

@@ -53,8 +53,6 @@ namespace Application.UnidadSimple
 
                 var user = UserAccesor.GetCurrentUserName();
                 var UnidadSimpleFromStore = _context.unidadsimple.Where(x => x.id == request.id && x.id_categoria == request.id_categoria).First();
-                
-
                 if(UnidadSimpleFromStore == null) throw new RestException(System.Net.HttpStatusCode.NotFound);
 
                 UnidadSimpleFromStore.numero_topografico = request.numero_topografico;
@@ -77,12 +75,11 @@ namespace Application.UnidadSimple
                 UnidadSimpleFromStore.documentos_asociados =request.documentos_asociados;
                 UnidadSimpleFromStore.notas =request.notas;
                 UnidadSimpleFromStore.notas_control_interno =request.notas_control_interno;
-                //UnidadSimpleFromStore.fechaDRegistro =request.fechaDRegistro;
-                //UnidadSimpleFromStore.fechaDUltimaAct =request.fechaDUltimaAct;
+                UnidadSimpleFromStore.UserEdit = user;
+                UnidadSimpleFromStore.fechaDUltimaAct = System.DateTime.Now;
                 UnidadSimpleFromStore.Descriptores =request.Descriptores;
-
                 _context.unidadsimple.Update(UnidadSimpleFromStore);
-                
+    
                 var success = await _context.SaveChangesAsync() > 0;
                 if (success) return Unit.Value;
 
