@@ -1,5 +1,6 @@
+import { AxiosResponse } from "axios";
 import { observable, action, makeObservable} from "mobx";
-import { createContext } from "react";
+
 import agent from '../api/agent'
 import { IUnidadSimple } from "../models/unidadsimple";
 import { RootStore } from "./RootStore";
@@ -73,29 +74,16 @@ export default class UnidadSimpleStore
             fechaDUltimaAct: '',
             Descriptores: ''
         }
-     this.UnidadSimpleElecta = initialUnidadSimple; 
-     console.log("Nueva Carga => " + this.UnidadSimpleElecta.id)
-     console.log("Hi => " + this.UnidadSimpleElecta.numero_topografico)
+    this.UnidadSimpleElecta = initialUnidadSimple; 
+    console.log("Nueva Carga => " + this.UnidadSimpleElecta.id)
+    console.log("Hi => " + this.UnidadSimpleElecta.numero_topografico)
 
     }
-    @action setEdit = (edit: boolean) => { this.isEdit = edit } // Esta variable lo voy a usar la parte de NuevaUnidadSimple
+    @action setEdit = (edit: boolean) =>  this.isEdit = edit 
 
-    @action createUnidadSimple = async (unidadSimple: IUnidadSimple) => {
-        try {
-        await agent.UnidadSimple.create(unidadSimple);
-        console.log('Unidad Simple Creada (OK)');
-        } catch(err) {console.log(err);}
-    }
-
-    @action updateUnidadSimple = async (unidadSimple: IUnidadSimple) => 
-    {
-        try {
-            await agent.UnidadSimple.update(unidadSimple);
-            console.log('Actualizando Unidad Simple');
-            } catch(err) {console.log(err);}
-    }
-
-
+    @action createUnidadSimple = async (unidadSimple: IUnidadSimple) => await agent.UnidadSimple.create(unidadSimple);
+    
+    @action updateUnidadSimple = async (unidadSimple: IUnidadSimple) => await agent.UnidadSimple.update(unidadSimple);
 
     @action listUnidadSimple = async (id_categoria: string) => 
     {

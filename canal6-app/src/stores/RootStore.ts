@@ -3,6 +3,7 @@ import CategoriaStore from './CategoriaStore'
 import CommonStore from './commonStore'
 import UnidadSimpleStore from './UnidadSimpleStore'
 import UserStore from './UserStore'
+
 export class RootStore {
     categoriaStore: CategoriaStore
     userStore: UserStore

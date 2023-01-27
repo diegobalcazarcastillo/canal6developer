@@ -5,31 +5,31 @@ import { IAcervo, IColeccion, IConjunto, IGrupo, ISerie, ISubconjunto, ISubGrupo
 import {history} from '../index'
 import { toast } from 'react-toastify';
 import { IUser, IUserFormValues } from '../models/users';
+import { ErrorResponse } from '@remix-run/router';
 
 
 axios.defaults.baseURL = 'http://localhost:5000/api';
 //const navigate = useNavigate()
 //Obtener los errores de la aplicación
 axios.interceptors.response.use(undefined, (error) =>{ 
-    
-
     /*Network Error */
     if(error.message == 'Network Error' && !error.response)
     {
         toast.error('Network Error! Quizá el API esté abajo o no tengas una buena conexión de red')
-        return;
     }
-
-    /**API ERROR */
-    const {status} = error.response
-    switch(status)
+    else
     {
-        case 404:
-            history.push('/NotFound')
-            break;
-        case 500:
-            toast.error('Server error!')
-            break;
+        /**API ERROR */
+        const {status} = error.response
+        switch(status)
+        {
+            case 404:
+                history.push('/NotFound')
+                break;
+            case 500:
+                toast.error('Server error!')
+                break;
+        }
     }
 
     throw error.response
@@ -47,13 +47,14 @@ axios.interceptors.request.use((config) => {
 
 
 
+
 const debug = false;
-const responseBody = (response: AxiosResponse) => response.data
+const responseBody = (response: AxiosResponse) => response.data; //{try { return response.data} catch(err) { console.log(err)}}
 
 const request = {
     get: (url: string) => { if(debug) {console.log(url);} return axios.get(url).then(responseBody)}, //Es console lo voy a dejar para corroborar a que llama el API, pero se tiene que quitar en deinitiva
     post: (url: string, body: {}) => axios.post(url, body).then(responseBody),
-    put: (url: string, body: {}) => axios.put(url, body).then(responseBody),
+    put:  (url: string, body: {}) => axios.put(url, body).then(responseBody).catch(err => {console.log("Error")}),
     delete: (url: string) => axios.delete(url).then(responseBody),
 }
 
@@ -107,9 +108,9 @@ const SubConjunto = {
 
 const UnidadSimple = {
     List: (id_categoria: string)  : Promise<IUnidadSimple[]> => request.get('/unidadsimple/list/' + id_categoria), // Da la lista de Unidades simples de una categoría
-    create: (unidadSimple: IUnidadSimple) => request.post('/unidadsimple', unidadSimple),
+    create: (unidadSimple: IUnidadSimple) : Promise<IUnidadSimple> => request.post('/unidadsimple', unidadSimple),
     ultimo: (id_categoria: string) : Promise<IUnidadSimple> => request.get('/unidadsimple/ultimo/' + id_categoria), // Da la última Unidad simple registrada
-    update: (unidadSimple: IUnidadSimple) => request.put('/unidadsimple', unidadSimple)
+    update: (unidadSimple: IUnidadSimple) : Promise<IUnidadSimple> => request.put('/unidadsimple', unidadSimple)
 
 }
 

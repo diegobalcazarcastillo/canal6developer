@@ -48,16 +48,9 @@ namespace API.Controllers
 
 
         [HttpPut]
-        [AllowAnonymous]
         public async Task<Unit> Update([FromBody] Application.UnidadSimple.Update.Command command)
         {
             return await _mediator.Send(command);
         }
-
-       
-        
-
-    
-
     }
 }

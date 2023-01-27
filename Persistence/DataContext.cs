@@ -25,7 +25,7 @@ namespace Persistence
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // Lo de abajo me permite dar múltiples llaves primarias a un modelop
-               modelBuilder.Entity<UNIDADSIMPLE>()
+            modelBuilder.Entity<UNIDADSIMPLE>()
             .HasKey(e => new { e.id, e.id_categoria }); 
             base.OnModelCreating(modelBuilder);
         }
