@@ -90,6 +90,7 @@ const CategoriaForm: React.FC<IProps> = ({ShowCreateCategoriaModal, createCatego
         toast.error("Necesitas agregar un texto")
         return
       }
+      debugger
       switch(nameid)
       {
         case "id_acervo":
@@ -135,7 +136,7 @@ const CategoriaForm: React.FC<IProps> = ({ShowCreateCategoriaModal, createCatego
           break;
 
         case "id_subconjunto":
-          let isubconjunto: ISubconjunto  = {id: 0, id_conjunto: categoria.id_subconjunto, nombre: insertValue}
+          let isubconjunto: ISubconjunto  = {id: 0, id_conjunto: categoria.id_conjunto, nombre: insertValue}
           await agent.SubConjunto.create(isubconjunto)
           agent.SubConjunto.List().then( (response) => {const filterobj = response.filter( (obj) => {return obj.id_conjunto == categoria.id_conjunto}); setSubconjunto(filterobj);})
           break;
