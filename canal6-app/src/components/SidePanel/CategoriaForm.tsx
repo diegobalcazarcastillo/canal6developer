@@ -5,7 +5,7 @@ import agent from '../../api/agent'
 import { ICategoria } from '../../models/categoria'
 import {RootStoreContext} from '../../stores/RootStore'
 import {observer} from 'mobx-react-lite'
-import CategoriaFormItem from './CategoriaFormItem'
+import { toast } from 'react-toastify'
 
 interface IProps {
   ShowCreateCategoriaModal(show: boolean),
@@ -25,19 +25,18 @@ const CategoriaForm: React.FC<IProps> = ({ShowCreateCategoriaModal, createCatego
     id_conjunto: null,
     id_subconjunto: null
   }
-
- 
-
-
-  //Agregados
-
+  //States to Insert Acervo, Coleccion, ... (etc)
   const [toogleAcervo, setToogleAcervo] = useState(false)
   const [toogleColeccion, setToogleColeccion] = useState(false)
   const [toogleSerie, setToogleSerie] = useState(false)
+  const [toogleSubSerie, setToogleSubSerie] = useState(false)
+  const [toogleGrupo, setToogleGrupo] = useState(false)
+  const [toogleSubGrupo, setToogleSubGrupo] = useState(false)
+  const [toogleConjunto, setToogleConjunto] = useState(false)
+  const [toogleSubConjunto, setToogleSubConjunto] = useState(false)
   const [insertValue, setInsertValue] = useState("")
 
-  //FinDeAgregados
-  
+  //State para las series
   const [categoria, setCategoria] = useState<ICategoria>(initialCategoria)
   const [acervos, setAcervos] = useState<IAcervo[]>([]);
   const [colecciones, setColecciones] = useState<IColeccion[]>([]);
@@ -47,7 +46,7 @@ const CategoriaForm: React.FC<IProps> = ({ShowCreateCategoriaModal, createCatego
   const [subgrupos, setSubGrupo] = useState<ISubGrupo[]>([]);
   const [conjuntos, setConjunto] = useState<IConjunto[]>([]);
   const [subconjuntos, setSubconjunto] = useState<ISubconjunto[]>([]);
-
+  //Root para stores
   const RootStore = useContext(RootStoreContext)
   const {createCategoria} = RootStore.categoriaStore
   const handleTextChange = (event: SyntheticEvent, data: any) => setInsertValue(data.value) 
@@ -59,9 +58,7 @@ const CategoriaForm: React.FC<IProps> = ({ShowCreateCategoriaModal, createCatego
   }
 
   const handleSelectChange = (event: SyntheticEvent, data: any) => { 
-    
     setCategoria({...categoria, [data.name]: data.value}); 
-    
     switch(data.name) {
       case "id_acervo":
         agent.Coleccion.List().then( (response) => {const filterobj = response.filter( (obj) => {return obj.id_acervo == data.value}); setColecciones(filterobj);})
@@ -87,9 +84,12 @@ const CategoriaForm: React.FC<IProps> = ({ShowCreateCategoriaModal, createCatego
     }
   }
 
-
   const addElementTo = async (nameid: string, setToogle: React.Dispatch<React.SetStateAction<boolean>>) => {
-      
+      if(insertValue == '') 
+      {
+        toast.error("Necesitas agregar un texto")
+        return
+      }
       switch(nameid)
       {
         case "id_acervo":
@@ -97,10 +97,47 @@ const CategoriaForm: React.FC<IProps> = ({ShowCreateCategoriaModal, createCatego
           await agent.Acervo.create(iacervo);
           agent.Acervo.List().then( (response) => {setAcervos(response);})
           break;
+
         case "id_coleccion":
           let icoleecion: IColeccion = {id: 0, id_acervo: categoria.id_acervo, nombre: insertValue }
           await agent.Coleccion.create(icoleecion)
           agent.Coleccion.List().then( (response) => {const filterobj = response.filter( (obj) => {return obj.id_acervo == categoria.id_acervo}); setColecciones(filterobj);})
+          break;
+
+        case "id_serie":
+          let iserie: ISerie = {id: 0, id_coleccion: categoria.id_coleccion, nombre: insertValue}
+          await agent.Serie.create(iserie)
+          agent.Serie.List().then( (response) => {const filterobj = response.filter( (obj) => {return obj.id_coleccion == categoria.id_coleccion}); setSerie(filterobj);})
+          break;
+
+        case "id_subserie":
+          var isubserie: ISubSerie = {id: 0, id_serie: categoria.id_serie, nombre: insertValue}
+          await agent.SubSerie.create(isubserie)
+          agent.SubSerie.List().then( (response) => {const filterobj = response.filter( (obj) => {return obj.id_serie == categoria.id_serie}); setSubserie(filterobj);})
+          break;
+
+        case "id_grupo":
+          let igrupo: IGrupo = {id: 0, id_subserie: categoria.id_subserie, nombre: insertValue}
+          await agent.Grupo.create(igrupo)
+          agent.Grupo.List().then( (response) => {const filterobj = response.filter( (obj) => {return obj.id_subserie == categoria.id_subserie}); setGrupo(filterobj);})
+          break;
+
+        case "id_subgrupo":
+          let isubgrupo: ISubGrupo  = {id: 0, id_grupo: categoria.id_grupo, nombre: insertValue}
+          await agent.SubGrupo.create(isubgrupo)
+          agent.SubGrupo.List().then( (response) => {const filterobj = response.filter( (obj) => {return obj.id_grupo == categoria.id_grupo}); setSubGrupo(filterobj);})
+          break;
+
+        case "id_conjunto":
+          let iconjunto: IConjunto  = {id: 0, id_subgrupo: categoria.id_subgrupo, nombre: insertValue}
+          await agent.Conjunto.create(iconjunto)
+          agent.Conjunto.List().then( (response) => {const filterobj = response.filter( (obj) => { return obj.id_subgrupo == categoria.id_subgrupo}); setConjunto(filterobj);})
+          break;
+
+        case "id_subconjunto":
+          let isubconjunto: ISubconjunto  = {id: 0, id_conjunto: categoria.id_subconjunto, nombre: insertValue}
+          await agent.SubConjunto.create(isubconjunto)
+          agent.SubConjunto.List().then( (response) => {const filterobj = response.filter( (obj) => {return obj.id_conjunto == categoria.id_conjunto}); setSubconjunto(filterobj);})
           break;
       }
     setToogle(false)
@@ -118,8 +155,6 @@ const CategoriaForm: React.FC<IProps> = ({ShowCreateCategoriaModal, createCatego
         (categoria.id_subgrupo == null ? '' : categoria.id_subgrupo +  '-' ) +
         (categoria.id_conjunto == null ? '' : categoria.id_conjunto + '-' ) +
         (categoria.id_subconjunto == null ? '' : categoria.id_subconjunto + '-' )
-      
-      
       /*
         Nota de utilidad: En Typescript esta función de slice funciona así
         console.log(idCategoria.slice(-1)) ** Me entrega el último caracter de la cadena
@@ -135,14 +170,10 @@ const CategoriaForm: React.FC<IProps> = ({ShowCreateCategoriaModal, createCatego
     ShowCreateCategoriaModal(false);
   }
 
-
-
-
-  
-  const showSelectOrAdd = (SelectOrAdd: boolean, placeholder: string , name: string, mapa: any, setToogle: React.Dispatch<React.SetStateAction<boolean>>, Toogle: boolean ) => 
+  const showSelectOrAdd = (toogle: boolean, placeholder: string , name: string, mapa: any, setToogle: React.Dispatch<React.SetStateAction<boolean>>) => 
   {
       var SelectOrAddControl;
-      if(!SelectOrAdd){
+      if(!toogle){
         SelectOrAddControl = 
           <React.Fragment>
           <Form.Select 
@@ -152,7 +183,7 @@ const CategoriaForm: React.FC<IProps> = ({ShowCreateCategoriaModal, createCatego
             onChange={handleSelectChange} 
             options={mapa.map(ds => {return {key: ds.id,text: ds.nombre,value: ds.id}})} >
             </Form.Select>
-            <Form.Button width={2} color='blue' onClick={() => setToogle(!Toogle)}>+</Form.Button>
+            <Form.Button width={2} color='blue' onClick={() => setToogle(!toogle)}>+</Form.Button>
           </React.Fragment>
       }
       else {
@@ -160,14 +191,11 @@ const CategoriaForm: React.FC<IProps> = ({ShowCreateCategoriaModal, createCatego
         <React.Fragment>
         <Form.Input width={12} onChange={handleTextChange}></Form.Input>
         <Form.Button width={2} color='green' onClick={() => addElementTo(name, setToogle)}>Agregar</Form.Button>
-        <Form.Button width={2} color='red' onClick={() => setToogle(!Toogle)}>Cancelar</Form.Button>
+        <Form.Button width={2} color='red' onClick={() => setToogle(!toogle)}>Cancelar</Form.Button>
         </React.Fragment>
       }
       return SelectOrAddControl
   }
-
-
-
 
   return (
     <Modal basic open={createCategoriaModal} onMount={OnOpenModal}>
@@ -175,41 +203,37 @@ const CategoriaForm: React.FC<IProps> = ({ShowCreateCategoriaModal, createCatego
           <Modal.Content>
             <Form>
 
-
               <Form.Group >
-                {showSelectOrAdd(toogleAcervo, 'Acervo', 'id_acervo', acervos, setToogleAcervo, toogleAcervo)}
+                {showSelectOrAdd(toogleAcervo, 'Acervo', 'id_acervo', acervos, setToogleAcervo)}
               </Form.Group>
 
               <Form.Group>
-                {showSelectOrAdd(toogleColeccion, 'Colección', 'id_coleccion', colecciones, setToogleColeccion, toogleColeccion)}
+                {showSelectOrAdd(toogleColeccion, 'Colección', 'id_coleccion', colecciones, setToogleColeccion)}
               </Form.Group>
-
 
               <Form.Group>
-                {showSelectOrAdd(toogleSerie, 'Serie', 'id_serie', series, setToogleSerie, toogleColeccion)}
+                {showSelectOrAdd(toogleSerie, 'Serie', 'id_serie', series, setToogleSerie)}
               </Form.Group>
 
-              
+              <Form.Group>
+                {showSelectOrAdd(toogleSubSerie, 'SubSerie', 'id_subserie', subseries, setToogleSubSerie)}
+              </Form.Group>
 
-              <Form.Field>
-                <Select placeholder='SubSerie' name="id_subserie" onChange={handleSelectChange} options={subseries.map(ds => {return {key: ds.id,text: ds.nombre,value: ds.id}})}></Select>  
-              </Form.Field>
+              <Form.Group>
+                {showSelectOrAdd(toogleGrupo, 'Grupo', 'id_grupo', grupos , setToogleGrupo)}
+              </Form.Group>
 
-              <Form.Field>
-                <Select placeholder='Grupo' name="id_grupo" onChange={handleSelectChange} options={grupos.map(ds => {return {key: ds.id,text: ds.nombre,value: ds.id}})}></Select>  
-              </Form.Field>
+              <Form.Group>
+                {showSelectOrAdd(toogleSubGrupo, 'SubGrupo', 'id_subgrupo', subgrupos , setToogleSubGrupo)}
+              </Form.Group>
 
-              <Form.Field>
-                <Select placeholder='SubGrupo' name="id_subgrupo" onChange={handleSelectChange} options={subgrupos.map(ds => {return {key: ds.id,text: ds.nombre,value: ds.id}})}></Select>  
-              </Form.Field>
+              <Form.Group>
+                {showSelectOrAdd(toogleConjunto, 'Conjunto', 'id_conjunto', conjuntos , setToogleConjunto  )}
+              </Form.Group>
 
-              <Form.Field>
-                <Select placeholder='Conjunto' name="g" onChange={handleSelectChange} options={conjuntos.map(ds => {return {key: ds.id,text: ds.nombre,value: ds.id}})}></Select>  
-              </Form.Field>
-              
-              <Form.Field>
-                <Select placeholder='SubConjunto' name="id_subconjunto" onChange={handleSelectChange} options={subconjuntos.map(ds => {return {key: ds.id,text: ds.nombre,value: ds.id}})}></Select>  
-              </Form.Field>
+              <Form.Group>
+                {showSelectOrAdd(toogleSubConjunto, 'SubConjunto', 'id_subconjunto', subconjuntos, setToogleSubConjunto )}
+              </Form.Group>
 
             </Form>
             </Modal.Content>
