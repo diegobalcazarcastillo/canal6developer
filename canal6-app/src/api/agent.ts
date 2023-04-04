@@ -68,12 +68,14 @@ const Categorias = {
 const Acervo = {
     List: ()  : Promise<IAcervo[]> => request.get('/acervos'),
     create: (categoria: IAcervo) => request.post('/acervos', categoria),
-    single: (id: string) : Promise<IAcervo> =>  request.get('/acervos/' + id)
+    single: (id: string) : Promise<IAcervo> =>  request.get('/acervos/' + id),
+    put: (acervo: IAcervo) => request.put('/acervos', acervo)
 }
 const Coleccion = {
     List: ()  : Promise<IColeccion[]> => request.get('/colecciones'),
     create: (categoria: IColeccion) => request.post('/colecciones', categoria),
     single: (id: string) : Promise<IAcervo> =>  request.get('/colecciones/' + id),
+    put: (coleccion: IColeccion) => request.put('/colecciones', coleccion)
 }
 const Serie = {
     List: ()  : Promise<ISerie[]> => request.get('/series'),

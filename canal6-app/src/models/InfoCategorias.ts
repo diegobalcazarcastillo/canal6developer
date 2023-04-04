@@ -52,3 +52,9 @@ export interface IInfoCategoria {
     nombre_subconjunto: string
 
 }
+
+//Experimental para hacer más genéricos los updates
+export interface ISubCategoriaGenerico {
+    id: string,
+    nombre: string
+}

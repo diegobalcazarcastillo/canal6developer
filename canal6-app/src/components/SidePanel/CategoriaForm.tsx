@@ -1,6 +1,6 @@
-import React , {useState, useEffect, SyntheticEvent, useContext }from 'react'
-import { Button, Form, Icon, Modal, Placeholder, Select } from 'semantic-ui-react'
-import { IAcervo, IColeccion, IConjunto, IGrupo, ISerie, ISubconjunto, ISubGrupo, ISubSerie } from '../../models/InfoCategorias'
+import React , {useState, SyntheticEvent, useContext }from 'react'
+import { Button, DropdownProps, Form, Icon, Modal} from 'semantic-ui-react'
+import { IAcervo, IColeccion, IConjunto, IGrupo, ISerie, ISubCategoriaGenerico, ISubconjunto, ISubGrupo, ISubSerie } from '../../models/InfoCategorias'
 import agent from '../../api/agent'
 import { ICategoria } from '../../models/categoria'
 import {RootStoreContext} from '../../stores/RootStore'
@@ -25,9 +25,10 @@ const CategoriaForm: React.FC<IProps> = ({ShowCreateCategoriaModal, createCatego
     id_conjunto: null,
     id_subconjunto: null
   }
+  
   //States to Insert Acervo, Coleccion, ... (etc)
-  const [toogleAcervo, setToogleAcervo] = useState(false)
-  const [toogleColeccion, setToogleColeccion] = useState(false)
+  const [toogleAcervo, setToogleAcervo] = useState(0)
+  const [toogleColeccion, setToogleColeccion] = useState(0)
   const [toogleSerie, setToogleSerie] = useState(false)
   const [toogleSubSerie, setToogleSubSerie] = useState(false)
   const [toogleGrupo, setToogleGrupo] = useState(false)
@@ -49,7 +50,8 @@ const CategoriaForm: React.FC<IProps> = ({ShowCreateCategoriaModal, createCatego
   //Root para stores
   const RootStore = useContext(RootStoreContext)
   const {createCategoria} = RootStore.categoriaStore
-  const handleTextChange = (event: SyntheticEvent, data: any) => setInsertValue(data.value) 
+  const handleTextChange = (event: SyntheticEvent, data: any) => setInsertValue(data.value) // Estado para el Insert 
+  const[infoSubCategoriaGenerico, setSubCategoriaGenerico] = useState<ISubCategoriaGenerico>()  // Estado para el Update
 
 
   const OnOpenModal = (event: SyntheticEvent, data: object) => 
@@ -57,10 +59,21 @@ const CategoriaForm: React.FC<IProps> = ({ShowCreateCategoriaModal, createCatego
     agent.Acervo.List().then( (response) => {setAcervos(response);}) /* Carga Primera cadena*/
   }
 
-  const handleSelectChange = (event: SyntheticEvent, data: any) => { 
+  const handleSelectChange = (event: SyntheticEvent, data: DropdownProps) => { 
+
+    //Esto es lo que estoy agregando en caso de que lo necesite
     setCategoria({...categoria, [data.name]: data.value}); 
+    
+    console.log(data.value)
+    let SubGenericoElegido: ISubCategoriaGenerico = 
+    { 
+      id: data.value.toString(), 
+      nombre: data.options.filter( (op) => op.key == data.value)[0].text.toString()
+    }
+    setSubCategoriaGenerico(SubGenericoElegido) // Se obtinene la variables genérica que se usará para actualizar en caso de solicitarse
+    
     switch(data.name) {
-      case "id_acervo":
+      case "id_acervo":    
         agent.Coleccion.List().then( (response) => {const filterobj = response.filter( (obj) => {return obj.id_acervo == data.value}); setColecciones(filterobj);})
         break;
       case "id_coleccion":
@@ -90,7 +103,6 @@ const CategoriaForm: React.FC<IProps> = ({ShowCreateCategoriaModal, createCatego
         toast.error("Necesitas agregar un texto")
         return
       }
-      debugger
       switch(nameid)
       {
         case "id_acervo":
@@ -145,6 +157,82 @@ const CategoriaForm: React.FC<IProps> = ({ShowCreateCategoriaModal, createCatego
   }
 
 
+  //FUNCIÓN DE PRUEBAS
+
+  
+
+
+
+  //La variable ADDEDIT es True = Create, False: Edit
+  const addEditElementToT = async (nameid: string, setToogle: React.Dispatch<React.SetStateAction<number>>, addEdit: boolean) => {
+    if(insertValue == '') 
+    {
+      toast.error("Necesitas agregar un texto")
+      return
+    }
+
+
+    switch(nameid)
+    { 
+      case "id_acervo":
+        let iacervo: IAcervo
+        iacervo = { id: addEdit  ? insertValue : infoSubCategoriaGenerico.id, 
+                    nombre: insertValue
+                  };
+        if(addEdit) await agent.Acervo.create(iacervo);
+        else await agent.Acervo.put(iacervo)
+        agent.Acervo.List().then( (response) => {setAcervos(response);})
+        break;
+
+      case "id_coleccion":
+        let icoleccion: IColeccion
+        icoleccion = { id: addEdit  ? 0 : Number(infoSubCategoriaGenerico.id),
+                    id_acervo: categoria.id_acervo ,
+                    nombre: insertValue
+                  };
+        if(addEdit) await agent.Coleccion.create(icoleccion);
+        else await agent.Coleccion.put(icoleccion)
+        agent.Coleccion.List().then( (response) => {const filterobj = response.filter( (obj) => {return obj.id_acervo == categoria.id_acervo}); setColecciones(filterobj);})
+        break;
+
+      case "id_serie":
+        let iserie: ISerie = {id: 0, id_coleccion: categoria.id_coleccion, nombre: insertValue}
+        await agent.Serie.create(iserie)
+        agent.Serie.List().then( (response) => {const filterobj = response.filter( (obj) => {return obj.id_coleccion == categoria.id_coleccion}); setSerie(filterobj);})
+        break;
+
+      case "id_subserie":
+        var isubserie: ISubSerie = {id: 0, id_serie: categoria.id_serie, nombre: insertValue}
+        await agent.SubSerie.create(isubserie)
+        agent.SubSerie.List().then( (response) => {const filterobj = response.filter( (obj) => {return obj.id_serie == categoria.id_serie}); setSubserie(filterobj);})
+        break;
+
+      case "id_grupo":
+        let igrupo: IGrupo = {id: 0, id_subserie: categoria.id_subserie, nombre: insertValue}
+        await agent.Grupo.create(igrupo)
+        agent.Grupo.List().then( (response) => {const filterobj = response.filter( (obj) => {return obj.id_subserie == categoria.id_subserie}); setGrupo(filterobj);})
+        break;
+
+      case "id_subgrupo":
+        let isubgrupo: ISubGrupo  = {id: 0, id_grupo: categoria.id_grupo, nombre: insertValue}
+        await agent.SubGrupo.create(isubgrupo)
+        agent.SubGrupo.List().then( (response) => {const filterobj = response.filter( (obj) => {return obj.id_grupo == categoria.id_grupo}); setSubGrupo(filterobj);})
+        break;
+
+      case "id_conjunto":
+        let iconjunto: IConjunto  = {id: 0, id_subgrupo: categoria.id_subgrupo, nombre: insertValue}
+        await agent.Conjunto.create(iconjunto)
+        agent.Conjunto.List().then( (response) => {const filterobj = response.filter( (obj) => { return obj.id_subgrupo == categoria.id_subgrupo}); setConjunto(filterobj);})
+        break;
+
+      case "id_subconjunto":
+        let isubconjunto: ISubconjunto  = {id: 0, id_conjunto: categoria.id_conjunto, nombre: insertValue}
+        await agent.SubConjunto.create(isubconjunto)
+        agent.SubConjunto.List().then( (response) => {const filterobj = response.filter( (obj) => {return obj.id_conjunto == categoria.id_conjunto}); setSubconjunto(filterobj);})
+        break;
+    }
+  setToogle(0)
+}
 
   const handleSubmit = () => {
     var idCategoria = 
@@ -171,8 +259,60 @@ const CategoriaForm: React.FC<IProps> = ({ShowCreateCategoriaModal, createCatego
     ShowCreateCategoriaModal(false);
   }
 
+
+
+  //FUNCION DE PRUEBA PARA MIGRAR 
+
+  const showSelectOrAddT = (toogle: number, placeholder: string , name: string, mapa: any, setToogle: React.Dispatch<React.SetStateAction<number>>) => 
+  {
+
+
+      // Me quedé resolviendo este Toogle, al parecer lo dejé físico al de acervos y no estoy usando el que debía
+      var SelectOrAddControl;
+      if(toogle == 0){
+        SelectOrAddControl = 
+          <React.Fragment>
+          <Form.Select 
+            width={12} 
+            placeholder={placeholder} 
+            name={name} 
+            onChange={handleSelectChange} 
+            options={mapa.map(ds => {return {key: ds.id,text: ds.nombre,value: ds.id}})} >
+            </Form.Select>
+            <Form.Button width={1} color='blue' onClick={() => setToogle(1)}>+</Form.Button>
+            <Form.Button width={1} color="blue" onClick={() => setToogle(2)}><Icon name="edit">
+              </Icon></Form.Button>
+          </React.Fragment>
+      }
+      else if(toogle == 1) {
+        SelectOrAddControl = 
+        <React.Fragment>
+        <Form.Input width={12} onChange={handleTextChange}></Form.Input>
+        <Form.Button width={2} color='green' onClick={() => addEditElementToT(name, setToogle, true)}>Agregar</Form.Button>
+        <Form.Button width={2} color='red' onClick={() => setToogle(0)}>Cancelar</Form.Button>
+        </React.Fragment>
+      }
+      else if(toogle == 2)
+      {
+
+
+        SelectOrAddControl = 
+        <React.Fragment>
+        <Form.Input width={12} onChange={handleTextChange} defaultValue={infoSubCategoriaGenerico.nombre}></Form.Input>
+        <Form.Button width={2} color='green' onClick={() => addEditElementToT(name, setToogle, false)}>Agregar</Form.Button>
+        <Form.Button width={2} color='red' onClick={() => setToogle(0)}>Cancelar</Form.Button>
+        </React.Fragment>
+      }
+      return SelectOrAddControl
+  }
+
+  //FIN DE FUNCIÓN DE PRUEBAS
+
+
   const showSelectOrAdd = (toogle: boolean, placeholder: string , name: string, mapa: any, setToogle: React.Dispatch<React.SetStateAction<boolean>>) => 
   {
+
+
       var SelectOrAddControl;
       if(!toogle){
         SelectOrAddControl = 
@@ -184,7 +324,9 @@ const CategoriaForm: React.FC<IProps> = ({ShowCreateCategoriaModal, createCatego
             onChange={handleSelectChange} 
             options={mapa.map(ds => {return {key: ds.id,text: ds.nombre,value: ds.id}})} >
             </Form.Select>
-            <Form.Button width={2} color='blue' onClick={() => setToogle(!toogle)}>+</Form.Button>
+            <Form.Button width={1} color='blue' onClick={() => setToogle(!toogle)}>+</Form.Button>
+            <Form.Button width={1} color="blue" onClick={() => setToogle(!toogle)}><Icon name="edit">
+              </Icon></Form.Button>
           </React.Fragment>
       }
       else {
@@ -205,11 +347,11 @@ const CategoriaForm: React.FC<IProps> = ({ShowCreateCategoriaModal, createCatego
             <Form>
 
               <Form.Group >
-                {showSelectOrAdd(toogleAcervo, 'Acervo', 'id_acervo', acervos, setToogleAcervo)}
+                {showSelectOrAddT(toogleAcervo, 'Acervo', 'id_acervo', acervos, setToogleAcervo)}
               </Form.Group>
 
               <Form.Group>
-                {showSelectOrAdd(toogleColeccion, 'Colección', 'id_coleccion', colecciones, setToogleColeccion)}
+                {showSelectOrAddT(toogleColeccion, 'Colección', 'id_coleccion', colecciones, setToogleColeccion)}
               </Form.Group>
 
               <Form.Group>

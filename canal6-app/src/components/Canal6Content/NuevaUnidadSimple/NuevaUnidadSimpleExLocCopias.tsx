@@ -38,7 +38,7 @@ const NuevaUnidadSimpleExLocCopias: React.FC<IProps> = ({unidadSimple, isWaiting
       <Button
             disabled={isWaiting}
             color="orange"
-            content="Editar"
+            content="Guardar"
             labelPosition="left"
             icon="edit"
             onClick={handleCreateEditUnidadSimple}

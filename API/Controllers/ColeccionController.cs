@@ -1,11 +1,9 @@
 using System;
-using System.Linq;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Domain;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Application.Colecciones;
 
 namespace API.Controllers
 {
@@ -14,7 +12,6 @@ namespace API.Controllers
     public class ColeccionController : ControllerBase
     {
         private IMediator _mediator;
-
         public ColeccionController(IMediator mediator)
         {
             _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
@@ -34,8 +31,10 @@ namespace API.Controllers
         {
             return await _mediator.Send(command);
         }
-
-
-        
+        [HttpPut]
+        public async Task<Unit> Update([FromBody] Application.Colecciones.Update.Command command)
+        {
+            return await _mediator.Send(command);
+        }        
     }
 }

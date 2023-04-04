@@ -43,7 +43,7 @@ const NuevaUnidadSimpleAreaCaractFisica: React.FC<IProps> = ({unidadSimple, isWa
       <Button
             disabled={isWaiting}
             color="blue"
-            content="Editar"
+            content="Guardar"
             labelPosition="left"
             icon="edit"
             onClick={handleCreateEditUnidadSimple}

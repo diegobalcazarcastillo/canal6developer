@@ -26,7 +26,7 @@ const NuevaUnidadSimpleCondiciones: React.FC<IProps> = ({unidadSimple, isWaiting
           <Button
                 disabled={isWaiting}
                 color="grey"
-                content="Editar"
+                content="Guardar"
                 labelPosition="left"
                 icon="edit"
                 onClick={handleCreateEditUnidadSimple}

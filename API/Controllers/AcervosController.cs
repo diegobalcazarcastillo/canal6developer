@@ -1,12 +1,9 @@
-using System;
-using System.Linq;
+
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Domain;
 using System.Collections.Generic;
-
 using System.Threading.Tasks;
-using Application.Acervos;
 using Microsoft.AspNetCore.Authorization;
 
 namespace API.Controllers
@@ -34,6 +31,12 @@ namespace API.Controllers
 
         [HttpDelete]
         public async Task<Unit> Delete([FromBody] Application.Acervos.Delete.Command command)
+        {
+            return await Mediator.Send(command);
+        }
+
+        [HttpPut]
+        public async Task<Unit> Update([FromBody] Application.Acervos.Update.Command command)
         {
             return await Mediator.Send(command);
         }

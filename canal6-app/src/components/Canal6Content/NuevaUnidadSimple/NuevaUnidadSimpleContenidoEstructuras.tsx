@@ -65,7 +65,7 @@ const NuevaUnidadSimpleContenidoEstructuras: React.FC<IProps> = ({unidadSimple, 
       <Button
             disabled={isWaiting}
             color="red"
-            content="Editar"
+            content="Guardar"
             labelPosition="left"
             icon="edit"
             onClick={handleCreateEditUnidadSimple}
