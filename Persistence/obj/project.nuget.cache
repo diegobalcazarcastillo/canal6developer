@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "MeaI9a5bCVytO9ZW1oOHkBk4ntThTzXne23NcXveiWNOA9Z4j966tmkeVR9Pu39uuacLqNSw9InVPyjfNIeDyA==",
+  "dgSpecHash": "VCR0EHSVGdz2fngys+In9SVbavj99S8wwF/f3odnFLKqfIBxOS5UpKdOoro224pRFGAFfx2tZDiIB23mJbx5SQ==",
   "success": true,
-  "projectFilePath": "D:\\Desarrollo\\Canal6\\interface\\Persistence\\Persistence.csproj",
+  "projectFilePath": "D:\\Desarrollo\\canal6\\interface\\Persistence\\Persistence.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\zero1\\.nuget\\packages\\google.protobuf\\3.19.4\\google.protobuf.3.19.4.nupkg.sha512",
     "C:\\Users\\zero1\\.nuget\\packages\\k4os.compression.lz4\\1.2.6\\k4os.compression.lz4.1.2.6.nupkg.sha512",

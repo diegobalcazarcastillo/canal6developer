@@ -80,32 +80,39 @@ const Coleccion = {
 const Serie = {
     List: ()  : Promise<ISerie[]> => request.get('/series'),
     create: (categoria: ISerie) => request.post('/series', categoria),
-    single: (id: string) : Promise<IAcervo> =>  request.get('/series/' + id)
+    single: (id: string) : Promise<IAcervo> =>  request.get('/series/' + id),
+    put: (series: ISerie) => request.put('/series', series)
 }
 const SubSerie = {
     List: ()  : Promise<ISubSerie[]> => request.get('/subseries'),
     create: (categoria: ISubSerie) => request.post('/subseries', categoria),
-    single: (id: string) : Promise<IAcervo> =>  request.get('/subseries/' + id)
+    single: (id: string) : Promise<IAcervo> =>  request.get('/subseries/' + id),
+    put: (subserie: ISubSerie) => request.put('/subseries', subserie)
 }
 const Grupo = {
     List: ()  : Promise<IGrupo[]> => request.get('/grupos'),
     create: (categoria: IGrupo) => request.post('/grupos', categoria),
-    single: (id: string) : Promise<IAcervo> =>  request.get('/grupos/' + id)
+    single: (id: string) : Promise<IAcervo> =>  request.get('/grupos/' + id),
+    put: (grupo: IGrupo) => request.put('/grupos', grupo)
+    
 }
 const SubGrupo = {
     List: ()  : Promise<ISubGrupo[]> => request.get('/subgrupos'),
     create: (categoria: ISubGrupo) => request.post('/subgrupos', categoria),
-    single: (id: string) : Promise<IAcervo> =>  request.get('/subgrupos/' + id)
+    single: (id: string) : Promise<IAcervo> =>  request.get('/subgrupos/' + id),
+    put: (subgrupo: ISubGrupo) => request.put('/subgrupos', subgrupo)
 }
 const Conjunto = {
     List: ()  : Promise<IConjunto[]> => request.get('/conjuntos'),
     create: (categoria: IConjunto) => request.post('/conjuntos', categoria),
-    single: (id: string) : Promise<IAcervo> =>  request.get('/conjuntos/' + id)
+    single: (id: string) : Promise<IAcervo> =>  request.get('/conjuntos/' + id),
+    put: (conjunto: IConjunto) => request.put('/conjuntos', conjunto)
 }
 const SubConjunto = {
     List: ()  : Promise<ISubconjunto[]> => request.get('/subconjuntos'),
     create: (categoria: ISubconjunto) => request.post('/subconjuntos', categoria),
-    single: (id: string) : Promise<IAcervo> =>  request.get('/subconjuntos/' + id)
+    single: (id: string) : Promise<IAcervo> =>  request.get('/subconjuntos/' + id),
+    put: (subconjunto: ISubconjunto) => request.put('/subconjuntos', subconjunto)
 }
 
 const UnidadSimple = {

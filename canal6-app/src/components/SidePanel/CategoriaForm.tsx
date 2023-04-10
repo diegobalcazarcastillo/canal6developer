@@ -29,12 +29,12 @@ const CategoriaForm: React.FC<IProps> = ({ShowCreateCategoriaModal, createCatego
   //States to Insert Acervo, Coleccion, ... (etc)
   const [toogleAcervo, setToogleAcervo] = useState(0)
   const [toogleColeccion, setToogleColeccion] = useState(0)
-  const [toogleSerie, setToogleSerie] = useState(false)
-  const [toogleSubSerie, setToogleSubSerie] = useState(false)
-  const [toogleGrupo, setToogleGrupo] = useState(false)
-  const [toogleSubGrupo, setToogleSubGrupo] = useState(false)
-  const [toogleConjunto, setToogleConjunto] = useState(false)
-  const [toogleSubConjunto, setToogleSubConjunto] = useState(false)
+  const [toogleSerie, setToogleSerie] = useState(0)
+  const [toogleSubSerie, setToogleSubSerie] = useState(0)
+  const [toogleGrupo, setToogleGrupo] = useState(0)
+  const [toogleSubGrupo, setToogleSubGrupo] = useState(0)
+  const [toogleConjunto, setToogleConjunto] = useState(0)
+  const [toogleSubConjunto, setToogleSubConjunto] = useState(0)
   const [insertValue, setInsertValue] = useState("")
 
   //State para las series
@@ -97,74 +97,10 @@ const CategoriaForm: React.FC<IProps> = ({ShowCreateCategoriaModal, createCatego
     }
   }
 
-  const addElementTo = async (nameid: string, setToogle: React.Dispatch<React.SetStateAction<boolean>>) => {
-      if(insertValue == '') 
-      {
-        toast.error("Necesitas agregar un texto")
-        return
-      }
-      switch(nameid)
-      {
-        case "id_acervo":
-          let iacervo: IAcervo = { id: insertValue, nombre: insertValue};
-          await agent.Acervo.create(iacervo);
-          agent.Acervo.List().then( (response) => {setAcervos(response);})
-          break;
-
-        case "id_coleccion":
-          let icoleecion: IColeccion = {id: 0, id_acervo: categoria.id_acervo, nombre: insertValue }
-          await agent.Coleccion.create(icoleecion)
-          agent.Coleccion.List().then( (response) => {const filterobj = response.filter( (obj) => {return obj.id_acervo == categoria.id_acervo}); setColecciones(filterobj);})
-          break;
-
-        case "id_serie":
-          let iserie: ISerie = {id: 0, id_coleccion: categoria.id_coleccion, nombre: insertValue}
-          await agent.Serie.create(iserie)
-          agent.Serie.List().then( (response) => {const filterobj = response.filter( (obj) => {return obj.id_coleccion == categoria.id_coleccion}); setSerie(filterobj);})
-          break;
-
-        case "id_subserie":
-          var isubserie: ISubSerie = {id: 0, id_serie: categoria.id_serie, nombre: insertValue}
-          await agent.SubSerie.create(isubserie)
-          agent.SubSerie.List().then( (response) => {const filterobj = response.filter( (obj) => {return obj.id_serie == categoria.id_serie}); setSubserie(filterobj);})
-          break;
-
-        case "id_grupo":
-          let igrupo: IGrupo = {id: 0, id_subserie: categoria.id_subserie, nombre: insertValue}
-          await agent.Grupo.create(igrupo)
-          agent.Grupo.List().then( (response) => {const filterobj = response.filter( (obj) => {return obj.id_subserie == categoria.id_subserie}); setGrupo(filterobj);})
-          break;
-
-        case "id_subgrupo":
-          let isubgrupo: ISubGrupo  = {id: 0, id_grupo: categoria.id_grupo, nombre: insertValue}
-          await agent.SubGrupo.create(isubgrupo)
-          agent.SubGrupo.List().then( (response) => {const filterobj = response.filter( (obj) => {return obj.id_grupo == categoria.id_grupo}); setSubGrupo(filterobj);})
-          break;
-
-        case "id_conjunto":
-          let iconjunto: IConjunto  = {id: 0, id_subgrupo: categoria.id_subgrupo, nombre: insertValue}
-          await agent.Conjunto.create(iconjunto)
-          agent.Conjunto.List().then( (response) => {const filterobj = response.filter( (obj) => { return obj.id_subgrupo == categoria.id_subgrupo}); setConjunto(filterobj);})
-          break;
-
-        case "id_subconjunto":
-          let isubconjunto: ISubconjunto  = {id: 0, id_conjunto: categoria.id_conjunto, nombre: insertValue}
-          await agent.SubConjunto.create(isubconjunto)
-          agent.SubConjunto.List().then( (response) => {const filterobj = response.filter( (obj) => {return obj.id_conjunto == categoria.id_conjunto}); setSubconjunto(filterobj);})
-          break;
-      }
-    setToogle(false)
-  }
-
-
   //FUNCIÓN DE PRUEBAS
 
-  
-
-
-
   //La variable ADDEDIT es True = Create, False: Edit
-  const addEditElementToT = async (nameid: string, setToogle: React.Dispatch<React.SetStateAction<number>>, addEdit: boolean) => {
+  const addEditElementTo = async (nameid: string, setToogle: React.Dispatch<React.SetStateAction<number>>, addEdit: boolean) => {
     if(insertValue == '') 
     {
       toast.error("Necesitas agregar un texto")
@@ -196,38 +132,75 @@ const CategoriaForm: React.FC<IProps> = ({ShowCreateCategoriaModal, createCatego
         break;
 
       case "id_serie":
-        let iserie: ISerie = {id: 0, id_coleccion: categoria.id_coleccion, nombre: insertValue}
+        /*let iserie: ISerie = {id: 0, id_coleccion: categoria.id_coleccion, nombre: insertValue}
         await agent.Serie.create(iserie)
+        agent.Serie.List().then( (response) => {const filterobj = response.filter( (obj) => {return obj.id_coleccion == categoria.id_coleccion}); setSerie(filterobj);})
+        break;*/
+
+        let iserie: ISerie
+        iserie = {  id: addEdit  ? 0 : Number(infoSubCategoriaGenerico.id),
+                    id_coleccion: categoria.id_coleccion ,
+                    nombre: insertValue
+                  };
+        if(addEdit) await agent.Serie.create(iserie);
+        else await agent.Serie.put(iserie)
         agent.Serie.List().then( (response) => {const filterobj = response.filter( (obj) => {return obj.id_coleccion == categoria.id_coleccion}); setSerie(filterobj);})
         break;
 
       case "id_subserie":
-        var isubserie: ISubSerie = {id: 0, id_serie: categoria.id_serie, nombre: insertValue}
-        await agent.SubSerie.create(isubserie)
+        let isubserie: ISubSerie
+        isubserie = {  id: addEdit  ? 0 : Number(infoSubCategoriaGenerico.id),
+                    id_serie: categoria.id_serie ,
+                    nombre: insertValue
+                  };
+        if(addEdit) await agent.SubSerie.create(isubserie);
+        else await agent.SubSerie.put(isubserie)
         agent.SubSerie.List().then( (response) => {const filterobj = response.filter( (obj) => {return obj.id_serie == categoria.id_serie}); setSubserie(filterobj);})
         break;
 
+
+
       case "id_grupo":
-        let igrupo: IGrupo = {id: 0, id_subserie: categoria.id_subserie, nombre: insertValue}
-        await agent.Grupo.create(igrupo)
+        let igrupo: IGrupo
+        igrupo = {  id: addEdit  ? 0 : Number(infoSubCategoriaGenerico.id),
+                    id_subserie: categoria.id_subserie ,
+                    nombre: insertValue
+                  };
+        if(addEdit) await agent.Grupo.create(igrupo);
+        else await agent.Grupo.put(igrupo)
         agent.Grupo.List().then( (response) => {const filterobj = response.filter( (obj) => {return obj.id_subserie == categoria.id_subserie}); setGrupo(filterobj);})
         break;
 
       case "id_subgrupo":
-        let isubgrupo: ISubGrupo  = {id: 0, id_grupo: categoria.id_grupo, nombre: insertValue}
-        await agent.SubGrupo.create(isubgrupo)
+        let isubgrupo: ISubGrupo
+        isubgrupo = {  id: addEdit  ? 0 : Number(infoSubCategoriaGenerico.id),
+                    id_grupo: categoria.id_grupo ,
+                    nombre: insertValue
+                  };
+        if(addEdit) await agent.SubGrupo.create(isubgrupo);
+        else await agent.SubGrupo.put(isubgrupo)
         agent.SubGrupo.List().then( (response) => {const filterobj = response.filter( (obj) => {return obj.id_grupo == categoria.id_grupo}); setSubGrupo(filterobj);})
         break;
 
       case "id_conjunto":
-        let iconjunto: IConjunto  = {id: 0, id_subgrupo: categoria.id_subgrupo, nombre: insertValue}
-        await agent.Conjunto.create(iconjunto)
-        agent.Conjunto.List().then( (response) => {const filterobj = response.filter( (obj) => { return obj.id_subgrupo == categoria.id_subgrupo}); setConjunto(filterobj);})
+        let iconjunto: IConjunto
+        iconjunto = {  id: addEdit  ? 0 : Number(infoSubCategoriaGenerico.id),
+                    id_subgrupo: categoria.id_subgrupo ,
+                    nombre: insertValue
+                  };
+        if(addEdit) await agent.Conjunto.create(iconjunto);
+        else await agent.Conjunto.put(iconjunto)
+        agent.Conjunto.List().then( (response) => {const filterobj = response.filter( (obj) => {return obj.id_subgrupo == categoria.id_subgrupo}); setConjunto(filterobj);})
         break;
 
       case "id_subconjunto":
-        let isubconjunto: ISubconjunto  = {id: 0, id_conjunto: categoria.id_conjunto, nombre: insertValue}
-        await agent.SubConjunto.create(isubconjunto)
+        let isubconjunto: ISubconjunto
+        isubconjunto = {  id: addEdit  ? 0 : Number(infoSubCategoriaGenerico.id),
+                    id_conjunto: categoria.id_conjunto ,
+                    nombre: insertValue
+                  };
+        if(addEdit) await agent.SubConjunto.create(isubconjunto);
+        else await agent.SubConjunto.put(isubconjunto)
         agent.SubConjunto.List().then( (response) => {const filterobj = response.filter( (obj) => {return obj.id_conjunto == categoria.id_conjunto}); setSubconjunto(filterobj);})
         break;
     }
@@ -259,11 +232,7 @@ const CategoriaForm: React.FC<IProps> = ({ShowCreateCategoriaModal, createCatego
     ShowCreateCategoriaModal(false);
   }
 
-
-
-  //FUNCION DE PRUEBA PARA MIGRAR 
-
-  const showSelectOrAddT = (toogle: number, placeholder: string , name: string, mapa: any, setToogle: React.Dispatch<React.SetStateAction<number>>) => 
+  const showSelectOrAdd = (toogle: number, placeholder: string , name: string, mapa: any, setToogle: React.Dispatch<React.SetStateAction<number>>) => 
   {
 
 
@@ -288,7 +257,7 @@ const CategoriaForm: React.FC<IProps> = ({ShowCreateCategoriaModal, createCatego
         SelectOrAddControl = 
         <React.Fragment>
         <Form.Input width={12} onChange={handleTextChange}></Form.Input>
-        <Form.Button width={2} color='green' onClick={() => addEditElementToT(name, setToogle, true)}>Agregar</Form.Button>
+        <Form.Button width={2} color='green' onClick={() => addEditElementTo(name, setToogle, true)}>Agregar</Form.Button>
         <Form.Button width={2} color='red' onClick={() => setToogle(0)}>Cancelar</Form.Button>
         </React.Fragment>
       }
@@ -299,46 +268,14 @@ const CategoriaForm: React.FC<IProps> = ({ShowCreateCategoriaModal, createCatego
         SelectOrAddControl = 
         <React.Fragment>
         <Form.Input width={12} onChange={handleTextChange} defaultValue={infoSubCategoriaGenerico.nombre}></Form.Input>
-        <Form.Button width={2} color='green' onClick={() => addEditElementToT(name, setToogle, false)}>Agregar</Form.Button>
+        <Form.Button width={2} color='green' onClick={() => addEditElementTo(name, setToogle, false)}>Guardar</Form.Button>
         <Form.Button width={2} color='red' onClick={() => setToogle(0)}>Cancelar</Form.Button>
         </React.Fragment>
       }
       return SelectOrAddControl
   }
 
-  //FIN DE FUNCIÓN DE PRUEBAS
 
-
-  const showSelectOrAdd = (toogle: boolean, placeholder: string , name: string, mapa: any, setToogle: React.Dispatch<React.SetStateAction<boolean>>) => 
-  {
-
-
-      var SelectOrAddControl;
-      if(!toogle){
-        SelectOrAddControl = 
-          <React.Fragment>
-          <Form.Select 
-            width={12} 
-            placeholder={placeholder} 
-            name={name} 
-            onChange={handleSelectChange} 
-            options={mapa.map(ds => {return {key: ds.id,text: ds.nombre,value: ds.id}})} >
-            </Form.Select>
-            <Form.Button width={1} color='blue' onClick={() => setToogle(!toogle)}>+</Form.Button>
-            <Form.Button width={1} color="blue" onClick={() => setToogle(!toogle)}><Icon name="edit">
-              </Icon></Form.Button>
-          </React.Fragment>
-      }
-      else {
-        SelectOrAddControl = 
-        <React.Fragment>
-        <Form.Input width={12} onChange={handleTextChange}></Form.Input>
-        <Form.Button width={2} color='green' onClick={() => addElementTo(name, setToogle)}>Agregar</Form.Button>
-        <Form.Button width={2} color='red' onClick={() => setToogle(!toogle)}>Cancelar</Form.Button>
-        </React.Fragment>
-      }
-      return SelectOrAddControl
-  }
 
   return (
     <Modal basic open={createCategoriaModal} onMount={OnOpenModal}>
@@ -347,11 +284,11 @@ const CategoriaForm: React.FC<IProps> = ({ShowCreateCategoriaModal, createCatego
             <Form>
 
               <Form.Group >
-                {showSelectOrAddT(toogleAcervo, 'Acervo', 'id_acervo', acervos, setToogleAcervo)}
+                {showSelectOrAdd(toogleAcervo, 'Acervo', 'id_acervo', acervos, setToogleAcervo)}
               </Form.Group>
 
               <Form.Group>
-                {showSelectOrAddT(toogleColeccion, 'Colección', 'id_coleccion', colecciones, setToogleColeccion)}
+                {showSelectOrAdd(toogleColeccion, 'Colección', 'id_coleccion', colecciones, setToogleColeccion)}
               </Form.Group>
 
               <Form.Group>

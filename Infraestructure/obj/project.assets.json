@@ -2151,11 +2151,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Desarrollo\\Canal6\\interface\\Infraestructure\\Infraestructure.csproj",
+      "projectUniqueName": "D:\\Desarrollo\\canal6\\interface\\Infraestructure\\Infraestructure.csproj",
       "projectName": "Infraestructure",
-      "projectPath": "D:\\Desarrollo\\Canal6\\interface\\Infraestructure\\Infraestructure.csproj",
+      "projectPath": "D:\\Desarrollo\\canal6\\interface\\Infraestructure\\Infraestructure.csproj",
       "packagesPath": "C:\\Users\\zero1\\.nuget\\packages\\",
-      "outputPath": "D:\\Desarrollo\\Canal6\\interface\\Infraestructure\\obj\\",
+      "outputPath": "D:\\Desarrollo\\canal6\\interface\\Infraestructure\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -2176,11 +2176,11 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "D:\\Desarrollo\\Canal6\\interface\\Application\\Application.csproj": {
-              "projectPath": "D:\\Desarrollo\\Canal6\\interface\\Application\\Application.csproj"
+            "D:\\Desarrollo\\canal6\\interface\\Application\\Application.csproj": {
+              "projectPath": "D:\\Desarrollo\\canal6\\interface\\Application\\Application.csproj"
             },
-            "D:\\Desarrollo\\Canal6\\interface\\Domain\\Domain.csproj": {
-              "projectPath": "D:\\Desarrollo\\Canal6\\interface\\Domain\\Domain.csproj"
+            "D:\\Desarrollo\\canal6\\interface\\Domain\\Domain.csproj": {
+              "projectPath": "D:\\Desarrollo\\canal6\\interface\\Domain\\Domain.csproj"
             }
           }
         }

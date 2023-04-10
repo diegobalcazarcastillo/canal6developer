@@ -6,6 +6,7 @@ using Domain;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Application.Colecciones;
+using Microsoft.AspNetCore.Authorization;
 
 namespace API.Controllers
 {
@@ -19,6 +20,7 @@ namespace API.Controllers
         {
             _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
         }
+        [AllowAnonymous]
         public async Task<ActionResult<List<GRUPO>>> List()
         {
             //Llamar a mediator, siempre se envían eventos
@@ -31,6 +33,13 @@ namespace API.Controllers
         }
         [HttpPost]
         public async Task<Unit> Create([FromBody] Application.Grupos.Create.Command command)
+        {
+            return await _mediator.Send(command);
+        }
+
+        [AllowAnonymous]
+        [HttpPut]
+        public async Task<Unit> Update([FromBody] Application.Grupos.Update.Command command)
         {
             return await _mediator.Send(command);
         }
